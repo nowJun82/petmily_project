@@ -1,6 +1,7 @@
 package com.sbs.sbb.answer;
 
 import com.sbs.sbb.question.Question;
+import com.sbs.sbb.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,4 +25,6 @@ public class Answer {
     @ManyToOne
     private Question question;
     // question_id 라는 칼럼이 생김
+    @ManyToOne
+    private SiteUser author;
 }
