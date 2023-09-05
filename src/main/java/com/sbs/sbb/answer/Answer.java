@@ -27,4 +27,6 @@ public class Answer {
     // question_id 라는 칼럼이 생김
     @ManyToOne
     private SiteUser author;
+
+    private LocalDateTime modifyDate;
 }
