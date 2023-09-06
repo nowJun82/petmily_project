@@ -1,10 +1,86 @@
 <!DOCTYPE html>
+
 <html lang="ko">
+
 <head>
-    <meta charset="UTF-8">
-    <title>메인</title>
+    <title>PETMILY OFFICIAL</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" type="text/css" href="../static/mainStyle.css">
+    <link rel="stylesheet" type="text/css" href="../static/mainStyle.css">
+    <link rel="stylesheet" type="text/css" href="../static/mainStyle.css">
+    <link rel="stylesheet" type="text/css" href="../static/mainStyle.css">
+    <style type="text/css"></style>
+
+    <script type="text/javascript" src="../static/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../static/common.js"></script>
+
+    <script type="text/javascript">
+        if (document.location.href.indexOf('//localhost:8090') == -1) { //document.location.href != 'http://localhost:8090/'
+          if (document.location.protocol == 'http:') {
+            document.location.href = document.location.href.replace('http:', 'https:');
+          }
+        }
+    </script>
 </head>
+
 <body>
-    <h1>메인</h1>
+<div id="wrap">
+
+    <!--Header-->
+    <header>
+        <h1 class="logo"><a href="/">PETMILY</a></h1>
+        <!--GNB-->
+        <nav>
+            <div class="menuList">
+                <dl>
+                    <dt><a href="#">소개</a></dt>
+                    <dd>
+                        <a href="#"><span>소개</span></a>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt><a href="#">커뮤니티</a></dt>
+                    <dd>
+                        <a href="#"><span>뉴스</span></a>
+                        <a href="#"><span>공지 게시판</span></a>
+                        <a href="#"><span>자유 게시판</span></a>
+                        <a href="#"><span>팁 게시판</span></a>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt><a href="#">스토어</a></dt>
+                    <dd>
+                        <a href="#"><span>의류/악세서리</span></a>
+                        <a href="#"><span>간식/영양제</span></a>
+                        <a href="#"><span>배변/위생</span></a>
+                        <a href="#"><span>홈/리빙</span></a>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt><a href="#">맵</a></dt>
+                    <dd>
+                        <a href="#"><span>병원</span></a>
+                        <a href="#"><span>호텔</span></a>
+                        <a href="#"><span>숙소</span></a>
+                        <a href="#"><span>기타</span></a>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt><a href="#">고객지원</a></dt>
+                    <dd>
+                        <a href="#"><span>Q&A</span></a>
+                        <a href="#"><span>불편 접수</span></a>
+                    </dd>
+                </dl>
+            </div>
+            <div class="bgLine">&nbsp;</div>
+        </nav>
+        <!--//GNB-->
+        <div>
+            <!--로그인&로그아웃&회원가입&마이페이지-->
+            <a href="#">서비스</a>
+        </div>
+    </header>
+</div>
 </body>
-</html>
