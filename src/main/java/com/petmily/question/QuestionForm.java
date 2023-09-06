@@ -1,4 +1,4 @@
-package com.sbs.sbb.question;
+package com.petmily.question;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;

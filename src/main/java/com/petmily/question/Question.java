@@ -1,7 +1,7 @@
-package com.sbs.sbb.question;
+package com.petmily.question;
 
-import com.sbs.sbb.answer.Answer;
-import com.sbs.sbb.user.SiteUser;
+import com.petmily.answer.Answer;
+import com.petmily.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

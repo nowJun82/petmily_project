@@ -3,7 +3,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/sbb_dev
+    url: jdbc:mariadb://localhost:3306/petmily
     username: root
     password:
   jpa:

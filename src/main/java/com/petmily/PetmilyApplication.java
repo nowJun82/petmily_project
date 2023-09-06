@@ -1,12 +1,12 @@
-package com.sbs.sbb;
+package com.petmily;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SbbApplication {
+public class PetmilyApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SbbApplication.class, args);
+		SpringApplication.run(PetmilyApplication.class, args);
 	}
 }

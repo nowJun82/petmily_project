@@ -1,8 +1,8 @@
-package com.sbs.sbb.answer;
+package com.petmily.answer;
 
-import com.sbs.sbb.question.DataNotFoundException;
-import com.sbs.sbb.question.Question;
-import com.sbs.sbb.user.SiteUser;
+import com.petmily.question.DataNotFoundException;
+import com.petmily.question.Question;
+import com.petmily.user.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

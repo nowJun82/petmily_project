@@ -1,4 +1,4 @@
-package com.sbs.sbb.answer;
+package com.petmily.answer;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;

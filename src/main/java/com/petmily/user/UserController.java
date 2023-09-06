@@ -1,4 +1,4 @@
-package com.sbs.sbb.user;
+package com.petmily.user;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

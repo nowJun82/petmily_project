@@ -1,9 +1,9 @@
-package com.sbs.sbb.answer;
+package com.petmily.answer;
 
-import com.sbs.sbb.question.Question;
-import com.sbs.sbb.question.QuestionService;
-import com.sbs.sbb.user.SiteUser;
-import com.sbs.sbb.user.UserService;
+import com.petmily.question.Question;
+import com.petmily.question.QuestionService;
+import com.petmily.user.SiteUser;
+import com.petmily.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

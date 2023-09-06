@@ -1,9 +1,9 @@
-package com.sbs.sbb.question;
+package com.petmily.question;
 
 
-import com.sbs.sbb.answer.AnswerForm;
-import com.sbs.sbb.user.SiteUser;
-import com.sbs.sbb.user.UserService;
+import com.petmily.answer.AnswerForm;
+import com.petmily.user.SiteUser;
+import com.petmily.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

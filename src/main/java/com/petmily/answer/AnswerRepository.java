@@ -1,4 +1,4 @@
-package com.sbs.sbb.answer;
+package com.petmily.answer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

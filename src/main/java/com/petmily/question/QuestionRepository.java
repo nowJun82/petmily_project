@@ -1,4 +1,4 @@
-package com.sbs.sbb.question;
+package com.petmily.question;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

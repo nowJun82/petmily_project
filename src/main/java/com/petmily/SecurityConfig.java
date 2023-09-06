@@ -1,4 +1,4 @@
-package com.sbs.sbb;
+package com.petmily;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

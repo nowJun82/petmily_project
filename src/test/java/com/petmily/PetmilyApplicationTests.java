@@ -1,12 +1,12 @@
-package com.sbs.sbb;
+package com.petmily;
 
-import com.sbs.sbb.question.QuestionService;
+import com.petmily.question.QuestionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SbbApplicationTests {
+class PetmilyApplicationTests {
 
     @Autowired
     private QuestionService questionService;
