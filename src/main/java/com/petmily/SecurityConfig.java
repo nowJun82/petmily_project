@@ -13,6 +13,11 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+<<<<<<< HEAD
+=======
+// test
+
+>>>>>>> 8a8b12aa4e6cd7b77d918d4d1ef1caf6368a2e65
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
