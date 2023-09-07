@@ -1,5 +1,6 @@
 package com.petmily.answer;
 
+import com.petmily.comment.Comment;
 import com.petmily.question.Question;
 import com.petmily.user.SiteUser;
 import jakarta.persistence.*;
@@ -7,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -33,4 +35,7 @@ public class Answer {
 
     @ManyToMany
     Set<SiteUser> voter;
+
+    @OneToMany(mappedBy = "answer")
+    private List<Comment> commentList;
 }
