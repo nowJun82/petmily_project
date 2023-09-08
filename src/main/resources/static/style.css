@@ -68,3 +68,8 @@ nav ul {
 .menu-item:hover .sub-menu ul li:hover a {
     background-color: #555;
 }
+
+.comment {
+    border-top:dotted 1px #ddd;
+    font-size:1.0em;
+}
