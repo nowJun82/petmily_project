@@ -1,6 +1,9 @@
 server:
   port: 8090
 spring:
+  devtools:
+    livereload:
+      enabled: true
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/petmily
@@ -11,4 +14,9 @@ spring:
       ddl-auto: update
     show-sql: true
   thymeleaf:
+<<<<<<< HEAD
     cache: false
+=======
+    cache: false
+    prefix: file:src/main/resources/templates/
+>>>>>>> 244779e82fd29ee72093927225e656472aa32f6e
