@@ -1,6 +1,6 @@
 package com.petmily.user;
 
-import com.petmily.question.DataNotFoundException;
+import com.petmily.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
