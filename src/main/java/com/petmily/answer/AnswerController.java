@@ -1,7 +1,5 @@
 package com.petmily.answer;
 
-import com.petmily.article.Article;
-import com.petmily.article.ArticleService;
 import com.petmily.question.Question;
 import com.petmily.question.QuestionService;
 import com.petmily.user.SiteUser;
@@ -22,20 +20,14 @@ import java.security.Principal;
 @RequiredArgsConstructor
 @Controller
 public class AnswerController {
-    private final ArticleService articleService;
+
     private final QuestionService questionService;
     private final AnswerService answerService;
     private final UserService userService;
 
-    @PostMapping("/create/{id}")
-    public String createAnswer(Model model, @PathVariable("id") Integer id, @RequestParam String content) {
-        Article article = this.articleService.getArticle(id);
-        this.answerService.article_create(article, content);
-        return String.format("redirect:/article/detail/%d", id);   }
-
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/create_123/{id}")
-    public String create(Model model, @PathVariable("id") Integer id,
+    @PostMapping("/create/{id}")
+    public String createAnswer(Model model, @PathVariable("id") Integer id,
                                @Valid AnswerForm answerForm, BindingResult bindingResult, Principal principal) {
         Question question = this.questionService.getQuestion(id);
         SiteUser siteUser = this.userService.getUser(principal.getName());
@@ -43,7 +35,8 @@ public class AnswerController {
             model.addAttribute("question", question);
             return "question_detail";
         }
-        Answer answer = this.answerService.create(question,answerForm.getContent(), siteUser);
+        Answer answer = this.answerService.create(question,
+                answerForm.getContent(), siteUser);
         return String.format("redirect:/question/detail/%s#answer_%s",
                 answer.getQuestion().getId(), answer.getId());
     }
@@ -58,6 +51,7 @@ public class AnswerController {
         answerForm.setContent(answer.getContent());
         return "answer_form";
     }
+
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/modify/{id}")
     public String answerModify(@Valid AnswerForm answerForm, BindingResult bindingResult,
@@ -73,6 +67,7 @@ public class AnswerController {
         return String.format("redirect:/question/detail/%s#answer_%s",
                 answer.getQuestion().getId(), answer.getId());
     }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
     public String answerDelete(Principal principal, @PathVariable("id") Integer id) {
@@ -83,6 +78,7 @@ public class AnswerController {
         this.answerService.delete(answer);
         return String.format("redirect:/question/detail/%s", answer.getQuestion().getId());
     }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/vote/{id}")
     public String answerVote(Principal principal, @PathVariable("id") Integer id) {

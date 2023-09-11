@@ -16,45 +16,57 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
-
+import java.util.List;
 @RequestMapping("/question")
 @RequiredArgsConstructor
 @Controller
 public class QuestionController {
+
     private final QuestionService questionService;
     private final UserService userService;
 
+    @GetMapping("/notification")
+    public String notification(){
+        return "question_notification";
+    }
+    @GetMapping("/tip")
+public String tip(){
+        return "question_tip";
+    }
     @GetMapping("/list")
     public String list(Model model, @RequestParam(value="page", defaultValue="0") int page,
                        @RequestParam(value = "kw", defaultValue = "") String kw) {
         Page<Question> paging = this.questionService.getList(page, kw);
         model.addAttribute("paging", paging);
         model.addAttribute("kw", kw);
-        return "Question.question_list";
+        return "question_list";
     }
 
     @GetMapping(value = "/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
         Question question = this.questionService.getQuestion(id);
         model.addAttribute("question", question);
-        return "Question.question_detail";
+        return "question_detail";
     }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
     public String questionCreate(QuestionForm questionForm) {
-        return "Question.question_form";
+        return "question_form";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
-    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult, Principal principal) {
+    public String questionCreate(@Valid QuestionForm questionForm,
+                                 BindingResult bindingResult, Principal principal) {
         if (bindingResult.hasErrors()) {
-            return "Question.question_form";
+            return "question_form";
         }
         SiteUser siteUser = this.userService.getUser(principal.getName());
-        this.questionService.create(questionForm.getSubject(), questionForm.getContent(),siteUser);
+        this.questionService.create(questionForm.getSubject(), questionForm.getContent(), siteUser);
         return "redirect:/question/list";
     }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
     public String questionModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal) {
@@ -64,14 +76,15 @@ public class QuestionController {
         }
         questionForm.setSubject(question.getSubject());
         questionForm.setContent(question.getContent());
-        return "Question.question_form";
+        return "question_form";
     }
+
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/modify/{id}")
     public String questionModify(@Valid QuestionForm questionForm, BindingResult bindingResult,
                                  Principal principal, @PathVariable("id") Integer id) {
         if (bindingResult.hasErrors()) {
-            return "Question.question_form";
+            return "question_form";
         }
         Question question = this.questionService.getQuestion(id);
         if (!question.getAuthor().getUsername().equals(principal.getName())) {
@@ -80,6 +93,7 @@ public class QuestionController {
         this.questionService.modify(question, questionForm.getSubject(), questionForm.getContent());
         return String.format("redirect:/question/detail/%s", id);
     }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
     public String questionDelete(Principal principal, @PathVariable("id") Integer id) {
@@ -90,6 +104,7 @@ public class QuestionController {
         this.questionService.delete(question);
         return "redirect:/";
     }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/vote/{id}")
     public String questionVote(Principal principal, @PathVariable("id") Integer id) {
