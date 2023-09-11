@@ -77,11 +77,6 @@ body {
 
 .top-bar__menu {
   display: flex;
-<<<<<<< Updated upstream
-  justify-content: space-between;
-  background-color: rgba(0, 0, 0, .7);
-=======
->>>>>>> Stashed changes
 }
 
 .top-bar__menu > li > a {
