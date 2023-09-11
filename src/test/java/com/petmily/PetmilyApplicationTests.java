@@ -1,22 +1,37 @@
 package com.petmily;
 
-import com.petmily.question.QuestionService;
+import com.petmily.article.Article;
+import com.petmily.article.ArticleRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
+
 @SpringBootTest
 class PetmilyApplicationTests {
 
-    @Autowired
-    private QuestionService questionService;
+	@Autowired
+	private ArticleRepository articleRepository;
 
 	@Test
 	void testJpa() {
-		for (int i = 1; i <= 300; i++) {
-			String subject = String.format("테스트 데이터입니다:[%03d]", i);
-			String content = "내용무";
-			this.questionService.create(subject, content,null);
-		}
+		Article article = new Article();
+		article.setSubject("제목1");
+		article.setContent("내용1");
+		article.setCreateDate(LocalDateTime.now());
+		this.articleRepository.save(article);  // 첫번째 질문 저장
+
+		Article article1 = new Article();
+		article1.setSubject("제목2");
+		article1.setContent("내용2");
+		article1.setCreateDate(LocalDateTime.now());
+		this.articleRepository.save(article1);  // 첫번째 질문 저장
+
+		Article article2 = new Article();
+		article2.setSubject("제목3");
+		article2.setContent("내용3");
+		article2.setCreateDate(LocalDateTime.now());
+		this.articleRepository.save(article2);  // 첫번째 질문 저장
 	}
 }
