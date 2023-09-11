@@ -1,9 +1,7 @@
 package com.petmily;
 
-import com.petmily.board.Article;
-import com.petmily.board.ArticleRepository;
-import com.petmily.board.ArticleService;
-import com.petmily.question.QuestionService;
+import com.petmily.article.Article;
+import com.petmily.article.ArticleRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,7 +11,7 @@ import java.time.LocalDateTime;
 @SpringBootTest
 class PetmilyApplicationTests {
 
-    @Autowired
+	@Autowired
 	private ArticleRepository articleRepository;
 
 	@Test

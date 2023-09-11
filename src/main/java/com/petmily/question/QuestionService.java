@@ -1,5 +1,6 @@
 package com.petmily.question;
 
+import com.petmily.DataNotFoundException;
 import com.petmily.answer.Answer;
 import com.petmily.user.SiteUser;
 import jakarta.persistence.criteria.*;
