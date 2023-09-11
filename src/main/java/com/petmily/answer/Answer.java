@@ -1,6 +1,5 @@
 package com.petmily.answer;
 
-import com.petmily.article.Article;
 import com.petmily.comment.Comment;
 import com.petmily.question.Question;
 import com.petmily.user.SiteUser;
@@ -30,8 +29,6 @@ public class Answer {
     @ManyToOne
     private Question question;
 
-    @ManyToOne
-    private Article article;
     // question_id 라는 칼럼이 생김
     @ManyToOne
     private SiteUser author;
