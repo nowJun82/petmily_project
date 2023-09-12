@@ -1,7 +1,6 @@
 package com.petmily.answer;
 
 import com.petmily.DataNotFoundException;
-import com.petmily.article.Article;
 import com.petmily.question.Question;
 import com.petmily.user.SiteUser;
 import lombok.RequiredArgsConstructor;
@@ -10,26 +9,21 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-
 @RequiredArgsConstructor
 @Service
 public class AnswerService {
+
     private final AnswerRepository answerRepository;
-    public Answer create(Question question, String content, SiteUser author){
-        Answer answer =new Answer();
+
+
+    public Answer create(Question question, String content, SiteUser author) {
+        Answer answer = new Answer();
         answer.setContent(content);
         answer.setCreateDate(LocalDateTime.now());
         answer.setQuestion(question);
         answer.setAuthor(author);
         this.answerRepository.save(answer);
         return answer;
-    }
-    public void article_create(Article article, String content) {
-        Answer answer = new Answer();
-        answer.setContent(content);
-        answer.setCreateDate(LocalDateTime.now());
-        answer.setArticle(article);
-        this.answerRepository.save(answer);
     }
 
     public Answer getAnswer(Integer id) {
@@ -46,9 +40,11 @@ public class AnswerService {
         answer.setModifyDate(LocalDateTime.now());
         this.answerRepository.save(answer);
     }
+
     public void delete(Answer answer) {
         this.answerRepository.delete(answer);
     }
+
     public void vote(Answer answer, SiteUser siteUser) {
         answer.getVoter().add(siteUser);
         this.answerRepository.save(answer);
