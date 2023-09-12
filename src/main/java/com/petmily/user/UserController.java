@@ -2,12 +2,12 @@ package com.petmily.user;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RequiredArgsConstructor
 @Controller
@@ -42,5 +42,14 @@ public class UserController {
                 userCreateForm.getEmail(), userCreateForm.getNickname());
 
         return "redirect:/";
+    }
+
+
+    @GetMapping("/mypage/{id}")
+    public String userMyPage(@PathVariable int id, Model model, Principal principal) {
+        String username = principal.getName();
+        SiteUser siteUser = userService.getUser(username);
+        model.addAttribute("siteUser", siteUser);
+        return "user_mypage";
     }
 }
