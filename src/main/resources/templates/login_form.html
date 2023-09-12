@@ -53,7 +53,7 @@
 
     <div class="w-0 flex-1 flex gap-2 items-center pr-6 justify-end">
       <div class="loginORlogout flex gap-1">
-        <a href="/user/signup"><button class="custom-btn btn-11">로그인</button></a>
+        <a href="/user/login"><button class="custom-btn btn-11">로그인</button></a>
       </div>
 
       <div class="profile flex gap-1">
@@ -66,11 +66,7 @@
 <div class="form-structor">
     <div class="signup">
         <h2 class="form-title" id="signup">회원가입</h2>
-        <form th:action="@{/user/login}" th:object="${userCreateForm}" method="post">
-            <div th:if="${param.error}">
-                <div class="alert alert-danger">
-                    사용자ID 또는 비밀번호를 확인해 주세요.
-                </div>
+        <form th:action="@{/user/signup}" th:object="${userCreateForm}" method="post">
             <div class="form-holder">
                 <input id="user" type="text" th:field="*{username}" class="input" placeholder="아이디"/>
                 <input type="password" th:field="*{password1}" class="input" placeholder="비밀번호"/>
@@ -86,7 +82,7 @@
             <h2 class="form-title" id="login">로그인</h2>
             <form th:action="@{/user/login}" method="post">
                 <div th:if="${param.error}">
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger" style="font-size: 15px;">
                         사용자ID 또는 비밀번호를 확인해 주세요.
                     </div>
                 </div>
