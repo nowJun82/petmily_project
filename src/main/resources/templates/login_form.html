@@ -10,14 +10,17 @@
 <div class="form-structor">
     <div class="signup">
         <h2 class="form-title" id="signup">회원가입</h2>
+        <form th:action="@{/user/signup}" th:object="${userCreateForm}" method="post">
         <div class="form-holder">
-            <input id="user" type="text" class="input" placeholder="아이디"/>
-            <input type="password" class="input" placeholder="비밀번호"/>
-            <input type="password" class="input" placeholder="비밀번호 확인"/>
-            <input type="text" class="input" placeholder="이메일"/>
-            <input type="text" class="input" placeholder="닉네임"/>
+            <input id="user" type="text" th:field="*{username}" class="input"  placeholder="아이디"/>
+            <input type="password" th:field="*{password1}" class="input" placeholder="비밀번호"/>
+            <input type="password" th:field="*{password2}" class="input" placeholder="비밀번호 확인"/>
+            <input type="text" th:field="*{email}" class="input" placeholder="이메일"/>
+            <input type="text" th:field="*{nickname}" class="input" placeholder="닉네임"/>
+            <div th:replace="~{form_errors :: formErrorsFragment}"></div>
         </div>
-        <button class="submit-btn">가입하기</button>
+        <button type="submit" class="submit-btn">가입하기</button>
+        </form>
     </div>
     <div class="login slide-up">
         <div class="center">
