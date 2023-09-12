@@ -14,9 +14,5 @@ spring:
       ddl-auto: update
     show-sql: true
   thymeleaf:
-<<<<<<< HEAD
-    cache: false
-=======
     cache: false
     prefix: file:src/main/resources/templates/
->>>>>>> 244779e82fd29ee72093927225e656472aa32f6e
