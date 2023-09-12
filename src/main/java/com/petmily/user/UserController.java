@@ -21,8 +21,13 @@ public class UserController {
     @GetMapping("/inquiry")
     public String inquiry(){return "user_inquiry";}
 
+    @GetMapping("/login")
+    public String login(UserCreateForm userCreateForm){
+        return "login_form";
+    }
+
     @GetMapping("/signup")
-    public String signup(UserCreateForm userCreateForm) {
+    public String signup(UserCreateForm userCreateForm){
         return "login_form";
     }
 
@@ -37,10 +42,18 @@ public class UserController {
                     "2개의 패스워드가 일치하지 않습니다.");
             return "login_form";
         }
-
-        userService.create(userCreateForm.getUsername(), userCreateForm.getPassword1(),
-                userCreateForm.getEmail(), userCreateForm.getNickname());
-
+        try {
+            userService.create(userCreateForm.getUsername(), userCreateForm.getPassword1(),
+                    userCreateForm.getEmail(), userCreateForm.getNickname());
+        }catch(DataIntegrityViolationException e) {
+            e.printStackTrace();
+            bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
+            return "login_form";
+        }catch(Exception e) {
+            e.printStackTrace();
+            bindingResult.reject("signupFailed", e.getMessage());
+            return "login_form";
+        }
         return "redirect:/";
     }
 }
