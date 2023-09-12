@@ -24,7 +24,8 @@ public class QuestionController {
 
     private final QuestionService questionService;
     private final UserService userService;
-
+    @GetMapping("/news")
+    public String news(){return "question_news";}
     @GetMapping("/notification")
     public String notification(){
         return "question_notification";
