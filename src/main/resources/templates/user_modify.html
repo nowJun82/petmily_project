@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 정보 수정</title>
+</head>
+<body>
+<h1>회원 정보 수정</h1>
+<form th:action="@{/userModify}" method="POST">
+    <label for="username">사용자 이름:</label>
+    <input type="text" id="username" name="username" th:value="${siteUser.username}" readonly><br><br>
+
+    <label for="nickname">전체 이름:</label>
+    <input type="text" id="nickname" name="nickname" th:value="${siteUser.nickname}"><br><br>
+
+    <label for="password1">새 비밀번호:</label>
+    <input type="password" id="password1" name="password1" placeholder="새 비밀번호"><br><br>
+
+    <label for="password2">새 비밀번호:</label>
+    <input type="password" id="password2" name="password2" placeholder="새 비밀번호"><br><br>
+
+    <input type="hidden" id="id" name="id" th:value="${siteUser.id}">
+
+    <input type="submit" value="저장">
+</form>
+</body>
+</html>

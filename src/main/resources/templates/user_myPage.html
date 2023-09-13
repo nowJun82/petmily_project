@@ -1,0 +1,5 @@
+<p>User id: <span th:text="${siteUser.id}"></span></p>
+<p>User username: <span th:text="${siteUser.username}"></span></p>
+<p>User nickname: <span th:text="${siteUser.nickname}"></span></p>
+<p>User email: <span th:text="${siteUser.email}"></span></p>
+<a th:href="@{|/user/modify/${siteUser.id}|}">내 정보 수정하기</a>

@@ -2,6 +2,8 @@ package com.petmily.user;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -57,12 +59,33 @@ public class UserController {
         return "redirect:/";
     }
 
-
-    @GetMapping("/mypage/{id}")
-    public String userMyPage(@PathVariable int id, Model model, Principal principal) {
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/myPage")
+    public String userMyPage(Model model, Principal principal) {
         String username = principal.getName();
         SiteUser siteUser = userService.getUser(username);
         model.addAttribute("siteUser", siteUser);
-        return "user_mypage";
+        return "user_myPage";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/modify/{id}")
+    public String userModify(UserUpdateForm userUpdateForm, @PathVariable Long id, Principal principal) {
+        SiteUser siteUser = this.userService.getUser(id);
+        userUpdateForm.setPassword(siteUser.getPassword());
+        userUpdateForm.setNickname(siteUser.getNickname());
+        userUpdateForm.setEmail(siteUser.getEmail());
+        return "user_modify";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/modify/{id}")
+    public String userModify(@Valid UserUpdateForm userUpdateForm, BindingResult bindingResult, Principal principal, @PathVariable("id") Long id) {
+        if (bindingResult.hasErrors()) {
+            return "user_modify";
+        }
+        SiteUser siteUser = this.userService.getUser(id);
+        this.userService.modify(siteUser, userUpdateForm.getPassword(), userUpdateForm.getNickname(), userUpdateForm.getEmail());
+        return "main";
     }
 }
