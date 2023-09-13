@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
+
 @RequestMapping("/question")
 @RequiredArgsConstructor
 @Controller
@@ -24,18 +25,51 @@ public class QuestionController {
 
     private final QuestionService questionService;
     private final UserService userService;
-    @GetMapping("/news")
-    public String news(){return "question_news";}
+
     @GetMapping("/notification")
-    public String notification(){
+    public String notification(Model model) {
+        List<Question> notificationList = this.questionService.getListByBoard(1);
+        model.addAttribute("questionList", notificationList);
         return "question_notification";
     }
+    @GetMapping(value = "/notification/detail/{id}")
+    public String notificationDetail(Model model, @PathVariable("id") Integer id) {
+        return "notification_detail";
+    }
+    @GetMapping("/news")
+    public String news(Model model) {
+        List<Question> newsList = this.questionService.getListByBoard(2);
+        model.addAttribute("questionList", newsList);
+        return "question_news";
+    }
+    @GetMapping(value = "/news/detail/{id}")
+    public String newsDetail(Model model, @PathVariable("id") Integer id) {
+        return "news_detail";
+    }
+
+    @GetMapping("/free")
+    public String free(Model model){
+        List<Question> freeList = this.questionService.getListByBoard(3);
+        model.addAttribute("questionList", freeList);
+        return "question_free";
+    }
+    @GetMapping(value = "/free/detail/{id}")
+    public String freeDetail(Model model, @PathVariable("id") Integer id) {
+        return "free_detail";
+    }
     @GetMapping("/tip")
-public String tip(){
+    public String tip(Model model) {
+        List<Question> tipList = this.questionService.getListByBoard(4);
+        model.addAttribute("questionList", tipList);
         return "question_tip";
     }
+    @GetMapping(value = "/tip/detail/{id}")
+    public String tipDetail(Model model, @PathVariable("id") Integer id) {
+        return "tip_detail";
+    }
+
     @GetMapping("/list")
-    public String list(Model model, @RequestParam(value="page", defaultValue="0") int page,
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
                        @RequestParam(value = "kw", defaultValue = "") String kw) {
         Page<Question> paging = this.questionService.getList(page, kw);
         model.addAttribute("paging", paging);
@@ -43,12 +77,12 @@ public String tip(){
         return "question_list";
     }
 
-    @GetMapping(value = "/detail/{id}")
-    public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
-        Question question = this.questionService.getQuestion(id);
-        model.addAttribute("question", question);
-        return "question_detail";
-    }
+    //@GetMapping(value = "/detail/{id}")
+    //public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
+       // Question question = this.questionService.getQuestion(id);
+      //  model.addAttribute("question", question);
+     //   return "question_detail";
+    //}
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
@@ -72,7 +106,7 @@ public String tip(){
     @GetMapping("/modify/{id}")
     public String questionModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal) {
         Question question = this.questionService.getQuestion(id);
-        if(!question.getAuthor().getUsername().equals(principal.getName())) {
+        if (!question.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         questionForm.setSubject(question.getSubject());

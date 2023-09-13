@@ -83,6 +83,9 @@ public class QuestionService {
         question.getVoter().add(siteUser);
         this.questionRepository.save(question);
     }
+    public List<Question> getListByBoard(Integer board) {
+        return this.questionRepository.findByBoard(board);
+    }
 }
 
 

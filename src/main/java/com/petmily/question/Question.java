@@ -26,6 +26,10 @@ public class Question {
 
     private LocalDateTime createDate;
 
+    private Integer hit;
+
+    private Integer board;
+
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Answer> answerList;
 
@@ -36,4 +40,5 @@ public class Question {
 
     @ManyToMany
     Set<SiteUser> voter;
+
 }

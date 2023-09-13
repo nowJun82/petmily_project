@@ -52,8 +52,12 @@
 
         <div class="w-0 flex-1 flex gap-2 items-center pr-6 justify-end">
             <div class="loginORlogout flex gap-1">
-                <a sec:authorize="isAnonymous()" href="/user/login"><button class="custom-btn btn-11">로그인</button></a>
-                <a sec:authorize="isAuthenticated()" href="/user/logout"><button class="custom-btn btn-11">로그아웃</button></a>
+                <a sec:authorize="isAnonymous()" href="/user/login">
+                    <button class="custom-btn btn-11">로그인</button>
+                </a>
+                <a sec:authorize="isAuthenticated()" href="/user/logout">
+                    <button class="custom-btn btn-11">로그아웃</button>
+                </a>
             </div>
 
             <div class="profile flex gap-1">
@@ -63,27 +67,6 @@
     </div>
 </header>
 <body>
-<table border="1">
-    <thead>
-    <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>작성일</th>
-        <th>조회수</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="question : ${questionList}">
-        <td th:text="${question.id}"></td>
-        <td>
-            <a th:href="@{|/question/news/detail/${question.id}|}" th:text="${question.subject}"></a>
-        </td>
-        <td><span th:if="${question.author != null}" th:text="${question.author.username}"></span></td>
-        <td th:text="${question.createDate}"></td>
-        <td th:text="${question.hit}"></td>
-    </tr>
-    </tbody>
-</table>
+<div>news_detail</div>
 </body>
 </html>

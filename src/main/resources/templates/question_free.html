@@ -77,7 +77,7 @@
     <tr th:each="question : ${questionList}">
         <td th:text="${question.id}"></td>
         <td>
-            <a th:href="@{|/question/news/detail/${question.id}|}" th:text="${question.subject}"></a>
+            <a th:href="@{|/question/free/detail/${question.id}|}" th:text="${question.subject}"></a>
         </td>
         <td><span th:if="${question.author != null}" th:text="${question.author.username}"></span></td>
         <td th:text="${question.createDate}"></td>
