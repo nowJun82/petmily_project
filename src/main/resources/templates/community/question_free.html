@@ -74,16 +74,19 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="question : ${questionList}">
-        <td th:text="${question.id}"></td>
+    <tr th:each="question, loop : ${questionList}">
+        <td th:text="${loop.count}"></td>
         <td>
-            <a th:href="@{|/question/tip/detail/${question.id}|}" th:text="${question.subject}"></a>
+            <a th:href="@{|/question/free/detail/${question.id}|}" th:text="${question.subject}"></a>
         </td>
         <td><span th:if="${question.author != null}" th:text="${question.author.username}"></span></td>
-        <td th:text="${question.createDate}"></td>
+        <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
         <td th:text="${question.hit}"></td>
     </tr>
     </tbody>
 </table>
+<div>
+    <a th:href="@{/question/create}" class="btn btn-primary">글쓰기</a>
+</div>
 </body>
 </html>

@@ -30,42 +30,51 @@ public class QuestionController {
     public String notification(Model model) {
         List<Question> notificationList = this.questionService.getListByBoard(1);
         model.addAttribute("questionList", notificationList);
-        return "question_notification";
+        return "community/question_notification";
     }
     @GetMapping(value = "/notification/detail/{id}")
     public String notificationDetail(Model model, @PathVariable("id") Integer id) {
-        return "notification_detail";
+        Question notificationQuestion = this.questionService.getQuestion(id);
+        model.addAttribute("question", notificationQuestion);
+        return "detail/notification_detail";
     }
+
     @GetMapping("/news")
     public String news(Model model) {
         List<Question> newsList = this.questionService.getListByBoard(2);
         model.addAttribute("questionList", newsList);
-        return "question_news";
+        return "community/question_news";
     }
     @GetMapping(value = "/news/detail/{id}")
-    public String newsDetail(Model model, @PathVariable("id") Integer id) {
-        return "news_detail";
+    public String newsDetail(Model model, @PathVariable("id") Integer id,AnswerForm answerForm) {
+        Question newsQuestion = this.questionService.getQuestion(id);
+        model.addAttribute("question", newsQuestion);
+        return "detail/news_detail";
     }
 
     @GetMapping("/free")
     public String free(Model model){
         List<Question> freeList = this.questionService.getListByBoard(3);
         model.addAttribute("questionList", freeList);
-        return "question_free";
+        return "community/question_free";
     }
     @GetMapping(value = "/free/detail/{id}")
-    public String freeDetail(Model model, @PathVariable("id") Integer id) {
-        return "free_detail";
+    public String freeDetail(Model model, @PathVariable("id") Integer id,AnswerForm answerForm) {
+        Question freeQuestion = this.questionService.getQuestion(id);
+        model.addAttribute("question", freeQuestion);
+        return "detail/free_detail";
     }
     @GetMapping("/tip")
     public String tip(Model model) {
         List<Question> tipList = this.questionService.getListByBoard(4);
         model.addAttribute("questionList", tipList);
-        return "question_tip";
+        return "community/question_tip";
     }
     @GetMapping(value = "/tip/detail/{id}")
-    public String tipDetail(Model model, @PathVariable("id") Integer id) {
-        return "tip_detail";
+    public String tipDetail(Model model, @PathVariable("id") Integer id,AnswerForm answerForm) {
+        Question tipQuestion = this.questionService.getQuestion(id);
+        model.addAttribute("question", tipQuestion);
+        return "detail/tip_detail";
     }
 
     @GetMapping("/list")
@@ -77,30 +86,42 @@ public class QuestionController {
         return "question_list";
     }
 
-    //@GetMapping(value = "/detail/{id}")
-    //public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
-       // Question question = this.questionService.getQuestion(id);
-      //  model.addAttribute("question", question);
-     //   return "question_detail";
-    //}
-
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
     public String questionCreate(QuestionForm questionForm) {
         return "question_form";
     }
 
-    @PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
-    public String questionCreate(@Valid QuestionForm questionForm,
-                                 BindingResult bindingResult, Principal principal) {
+    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "question_form";
         }
-        SiteUser siteUser = this.userService.getUser(principal.getName());
-        this.questionService.create(questionForm.getSubject(), questionForm.getContent(), siteUser);
-        return "redirect:/question/list";
+        this.questionService.create(questionForm.getSubject(), questionForm.getContent(),questionForm.getBoard());
+//        if(){
+        if(questionForm.getBoard().equals("뉴스 게시판")){
+            return "redirect:/question/news";
+        }
+        else if(questionForm.getBoard().equals("자유 게시판")){
+            return "redirect:/question/free";
+        }
+        else if(questionForm.getBoard().equals("팁 게시판")){
+            return "redirect:/question/tip";
+        }
+        return "redirect:/question/news"; // 질문 저장후 질문목록으로 이동
     }
+
+//    @PreAuthorize("isAuthenticated()")
+//    @PostMapping("/create")
+//    public String questionCreate(@Valid QuestionForm questionForm,
+//                                 BindingResult bindingResult, Principal principal) {
+//        if (bindingResult.hasErrors()) {
+//            return "question_form";
+//        }
+//        SiteUser siteUser = this.userService.getUser(principal.getName());
+//        this.questionService.create(questionForm.getSubject(), questionForm.getContent(), siteUser);
+//        return "redirect:/question/list";
+//    }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")

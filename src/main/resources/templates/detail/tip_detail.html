@@ -67,27 +67,18 @@
     </div>
 </header>
 <body>
-<table border="1">
-    <thead>
-    <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>작성일</th>
-        <th>조회수</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="question : ${questionList}">
-        <td th:text="${question.id}"></td>
-        <td>
-            <a th:href="@{|/question/notification/detail/${question.id}|}" th:text="${question.subject}"></a>
-        </td>
-        <td><span th:if="${question.author != null}" th:text="${question.author.username}"></span></td>
-        <td th:text="${question.createDate}"></td>
-        <td th:text="${question.hit}"></td>
-    </tr>
-    </tbody>
-</table>
+<h1 th:text="${question.subject}"></h1>
+<div th:text="${question.content}"></div>
+<form th:action="@{|/answer/create/tip/${question.id}|}" th:object="${answerForm}" method="post">
+    <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+    <textarea th:field="*{content}" name="content" id="content" rows="5"></textarea>
+    <input type="submit" value="답변등록">
+</form>
+<h5 th:text="|${#lists.size(question.answerList)}개의 답변이 있습니다.|"></h5>
+<div>
+    <ul>
+        <li th:each="answer : ${question.answerList}" th:text="${answer.content}"></li>
+    </ul>
+</div>
 </body>
 </html>
