@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface QuestionRepository extends JpaRepository<Question, Integer> {
     Question findBySubject(String subject);
+    List<Question> findByBoard(Integer board);
     Question findBySubjectAndContent(String subject, String content);
     List<Question> findBySubjectLike(String subject);
     Page<Question> findAll(Pageable pageable);
