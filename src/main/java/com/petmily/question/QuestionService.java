@@ -68,14 +68,20 @@ public class QuestionService {
         };
     }
 
-    public Page<Question> getList(int page, String kw) {
+    public Page<Question> getList(Integer board, int page) {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("createDate"));
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-        Specification<Question> spec = search(kw);
-        return this.questionRepository.findAll(spec, pageable);
-//        return this.questionRepository.findAllByKeyword(kw, pageable);
+        Pageable pageable = PageRequest.of(page, 10,Sort.by(sorts));
+        return this.questionRepository.findByBoard(board, pageable);
     }
+//    public Page<Question> getList(int page, String kw) {
+//        List<Sort.Order> sorts = new ArrayList<>();
+//        sorts.add(Sort.Order.desc("createDate"));
+//        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+//        Specification<Question> spec = search(kw);
+//        return this.questionRepository.findAll(spec, pageable);
+////        return this.questionRepository.findAllByKeyword(kw, pageable);
+//    }
 
 
     public void modify(Question question, String subject, String content) {

@@ -2,6 +2,7 @@ package com.petmily;
 
 import com.petmily.question.Question;
 import com.petmily.question.QuestionRepository;
+import com.petmily.question.QuestionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,23 +12,14 @@ import java.time.LocalDateTime;
 @SpringBootTest
 class PetmilyApplicationTests {
 	@Autowired
-	private QuestionRepository questionRepository;
+	private QuestionService questionService;
 	@Test
 	void testJpa() {
-		Question q1 = new Question();
-		q1.setSubject("sbb가 무엇인가요?");
-		q1.setContent("sbb에 대해서 알고 싶습니다.");
-		q1.setCreateDate(LocalDateTime.now());
-		q1.setHit(10);
-		q1.setBoard(1);
-		this.questionRepository.save(q1);
-
-		Question q2 = new Question();
-		q2.setSubject("스프링부트 모델 질문입니다.");
-		q2.setContent("id는 자동으로 생성되나요?");
-		q2.setCreateDate(LocalDateTime.now());
-		q2.setHit(10);
-		q2.setBoard(1);
-		this.questionRepository.save(q2);
+		for (int i = 1; i <= 130; i++) {
+			String subject = String.format("팁 게시판 테스트 데이터입니다:[%03d]", i);
+			String content = "내용무";
+			String board ="팁 게시판";
+			this.questionService.create(subject, content,board);
+		}
 	}
 }
