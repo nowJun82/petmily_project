@@ -3,3 +3,4 @@
 <p>User nickname: <span th:text="${siteUser.nickname}"></span></p>
 <p>User email: <span th:text="${siteUser.email}"></span></p>
 <a th:href="@{|/user/modify/${siteUser.id}|}">내 정보 수정하기</a>
+<a th:href="@{|/user/getList/${siteUser.id}|}">내 글 불러오기</a>
