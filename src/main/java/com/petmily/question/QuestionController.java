@@ -27,11 +27,12 @@ public class QuestionController {
     private final UserService userService;
 
     @GetMapping("/notification")
-    public String notification(Model model) {
-        List<Question> notificationList = this.questionService.getListByBoard(1);
-        model.addAttribute("questionList", notificationList);
+    public String notification(Model model,@RequestParam(value="page", defaultValue="0") int page) {
+        Page<Question> paging = this.questionService.getList(1,page);
+        model.addAttribute("paging", paging);
         return "community/question_notification";
     }
+
     @GetMapping(value = "/notification/detail/{id}")
     public String notificationDetail(Model model, @PathVariable("id") Integer id) {
         Question notificationQuestion = this.questionService.getQuestion(id);
@@ -40,9 +41,9 @@ public class QuestionController {
     }
 
     @GetMapping("/news")
-    public String news(Model model) {
-        List<Question> newsList = this.questionService.getListByBoard(2);
-        model.addAttribute("questionList", newsList);
+    public String news(Model model,@RequestParam(value="page", defaultValue="0") int page) {
+        Page<Question> paging = this.questionService.getList(2,page);
+        model.addAttribute("paging", paging);
         return "community/question_news";
     }
     @GetMapping(value = "/news/detail/{id}")
@@ -53,9 +54,9 @@ public class QuestionController {
     }
 
     @GetMapping("/free")
-    public String free(Model model){
-        List<Question> freeList = this.questionService.getListByBoard(3);
-        model.addAttribute("questionList", freeList);
+    public String free(Model model,@RequestParam(value="page", defaultValue="0") int page) {
+        Page<Question> paging = this.questionService.getList(3,page);
+        model.addAttribute("paging", paging);
         return "community/question_free";
     }
     @GetMapping(value = "/free/detail/{id}")
@@ -65,9 +66,9 @@ public class QuestionController {
         return "detail/free_detail";
     }
     @GetMapping("/tip")
-    public String tip(Model model) {
-        List<Question> tipList = this.questionService.getListByBoard(4);
-        model.addAttribute("questionList", tipList);
+    public String tip(Model model,@RequestParam(value="page", defaultValue="0") int page) {
+        Page<Question> paging = this.questionService.getList(4,page);
+        model.addAttribute("paging", paging);
         return "community/question_tip";
     }
     @GetMapping(value = "/tip/detail/{id}")
@@ -77,14 +78,14 @@ public class QuestionController {
         return "detail/tip_detail";
     }
 
-    @GetMapping("/list")
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
-                       @RequestParam(value = "kw", defaultValue = "") String kw) {
-        Page<Question> paging = this.questionService.getList(page, kw);
-        model.addAttribute("paging", paging);
-        model.addAttribute("kw", kw);
-        return "question_list";
-    }
+//    @GetMapping("/list")
+//    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+//                       @RequestParam(value = "kw", defaultValue = "") String kw) {
+//        Page<Question> paging = this.questionService.getList(page, kw);
+//        model.addAttribute("paging", paging);
+//        model.addAttribute("kw", kw);
+//        return "question_list";
+//    }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
