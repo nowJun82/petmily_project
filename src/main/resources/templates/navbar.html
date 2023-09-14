@@ -1,20 +1,54 @@
-<nav th:fragment="navbarFragment" class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">SBB</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
-                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/user/signup}">회원가입</a>
-                </li>
-            </ul>
+<header class="top-bar">
+    <div class="top-bar__in flex">
+        <div class="w-0 flex-1 flex items-center pl-6">
+            <a href="/">
+                <img src="/PETMILY_LOGO.png" alt="PETMILY">
+            </a>
+        </div>
+
+        <ul class="top-bar__menu">
+            <li>
+                <a href="#">소개</a>
+            </li>
+            <li>
+                <a href="#">커뮤니티</a>
+                <ul>
+                    <li><a href="/question/notification"><span>공지</span></a></li>
+                    <li><a href="/question/news"><span>뉴스</span></a></li>
+                    <li><a href="/question/free"><span>자유 게시판</span></a></li>
+                    <li><a href="/question/tip"><span>팁 게시판</span></a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">스토어</a>
+            </li>
+            <li>
+                <a href="#">맵</a>
+                <ul>
+                    <li><a href="#"><span>병원</span></a></li>
+                    <li><a href="#"><span>호텔</span></a></li>
+                    <li><a href="#"><span>숙소</span></a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">고객지원</a>
+                <ul>
+                    <li><a href="/user/QnA"><span>QnA</span></a></li>
+                    <li><a href="/user/inquiry"><span>1:1문의</span></a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="w-0 flex-1 flex gap-2 items-center pr-6 justify-end">
+            <div class="loginORlogout flex gap-1">
+                <a sec:authorize="isAnonymous()" href="/user/login"><button class="custom-btn btn-11">로그인</button></a>
+                <a sec:authorize="isAuthenticated()" href="/user/logout"><button class="custom-btn btn-11">로그아웃</button></a>
+            </div>
+
+            <div class="profile flex gap-1">
+                <a href="#"><img src="/profile.png" alt="PROFILE"></a>
+            </div>
         </div>
     </div>
-</nav>
+</header>
+<script src="https://cdn.tailwindcss.com"></script>

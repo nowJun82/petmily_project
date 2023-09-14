@@ -23,6 +23,33 @@ public class QuestionService {
 
     private final QuestionRepository questionRepository;
 
+    public Question getQuestion(Integer id) {
+        Optional<Question> question = this.questionRepository.findById(id);
+        if (question.isPresent()) {
+            return question.get();
+        } else {
+            throw new DataNotFoundException("question not found");
+        }
+    }
+    public void create(String subject, String content, String board) {
+        Integer boardid=0;
+        if(board.equals("뉴스 게시판")){
+            boardid=2;
+        }
+        else if(board.equals("자유 게시판")){
+            boardid=3;
+        }
+        else if(board.equals("팁 게시판")){
+            boardid=4;
+        }
+        Question q = new Question();
+        q.setSubject(subject);
+        q.setContent(content);
+        q.setBoard(boardid);
+        q.setCreateDate(LocalDateTime.now());
+        this.questionRepository.save(q);
+    }
+
     private Specification<Question> search(String kw) {
         return new Specification<>() {
             private static final long serialVersionUID = 1L;
@@ -50,23 +77,6 @@ public class QuestionService {
 //        return this.questionRepository.findAllByKeyword(kw, pageable);
     }
 
-    public Question getQuestion(Integer id) {
-        Optional<Question> question = this.questionRepository.findById(id);
-        if (question.isPresent()) {
-            return question.get();
-        } else {
-            throw new DataNotFoundException("question not found");
-        }
-    }
-
-    public void create(String subject, String content, SiteUser user) {
-        Question q = new Question();
-        q.setSubject(subject);
-        q.setContent(content);
-        q.setCreateDate(LocalDateTime.now());
-        q.setAuthor(user);
-        this.questionRepository.save(q);
-    }
 
     public void modify(Question question, String subject, String content) {
         question.setSubject(subject);

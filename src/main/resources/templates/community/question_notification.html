@@ -67,6 +67,27 @@
     </div>
 </header>
 <body>
-<div>notification_detail</div>
+<table border="1">
+    <thead>
+    <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성일</th>
+        <th>조회수</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="question, loop : ${questionList}">
+        <td th:text="${loop.count}"></td>
+        <td>
+            <a th:href="@{|/question/notification/detail/${question.id}|}" th:text="${question.subject}"></a>
+        </td>
+        <td><span th:if="${question.author != null}" th:text="${question.author.username}"></span></td>
+        <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+        <td th:text="${question.hit}"></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
