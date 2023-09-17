@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
+
 @RequestMapping("/question")
 @RequiredArgsConstructor
 @Controller
@@ -24,18 +25,24 @@ public class QuestionController {
 
     private final QuestionService questionService;
     private final UserService userService;
+
     @GetMapping("/news")
-    public String news(){return "question_news";}
+    public String news() {
+        return "question_news";
+    }
+
     @GetMapping("/notification")
-    public String notification(){
+    public String notification() {
         return "question_notification";
     }
+
     @GetMapping("/tip")
-public String tip(){
+    public String tip() {
         return "question_tip";
     }
+
     @GetMapping("/list")
-    public String list(Model model, @RequestParam(value="page", defaultValue="0") int page,
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
                        @RequestParam(value = "kw", defaultValue = "") String kw) {
         Page<Question> paging = this.questionService.getList(page, kw);
         model.addAttribute("paging", paging);
@@ -72,7 +79,7 @@ public String tip(){
     @GetMapping("/modify/{id}")
     public String questionModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal) {
         Question question = this.questionService.getQuestion(id);
-        if(!question.getAuthor().getUsername().equals(principal.getName())) {
+        if (!question.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         questionForm.setSubject(question.getSubject());

@@ -2,13 +2,17 @@ package com.petmily.user;
 
 import com.petmily.DataNotFoundException;
 import com.petmily.question.Question;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PutMapping;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -47,9 +51,17 @@ public class UserService {
     }
 
     public void modify(SiteUser siteUser, String password, String nickname, String email) {
-        siteUser.setPassword(password);
+        siteUser.setPassword(passwordEncoder.encode(password));
         siteUser.setNickname(nickname);
         siteUser.setEmail(email);
         this.userRepository.save(siteUser);
     }
+
+//    public Page<Question> getList(int page, String username) {
+//        getUser(username);
+//        List<Sort.Order> sorts = new ArrayList<>();
+//        sorts.add(Sort.Order.desc("createDate"));
+//        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+//        return "";
+//    }
 }

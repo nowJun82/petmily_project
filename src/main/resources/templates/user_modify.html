@@ -1,11 +1,19 @@
 <div layout:fragment="nickname" class="container">
     <h5 class="my-3 border-bottom pb-2">답변 수정</h5>
-    <form th:object="${userUpdateForm}" method="post">
+    <form th:object="${userUpdateForm}" method="Post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
         <div class="mb-3">
-            <label for="nickname" class="form-label">내용</label>
+            <label for="nickname" class="form-label">닉네임</label>
             <textarea th:field="*{nickname}" class="form-control" rows="1"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">비밀 번호</label>
+            <textarea th:field="*{password}" class="form-control" rows="1"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">이메일</label>
+            <textarea th:field="*{email}" class="form-control" rows="1"></textarea>
         </div>
         <input type="submit" value="저장하기" class="btn btn-primary my-2">
     </form>

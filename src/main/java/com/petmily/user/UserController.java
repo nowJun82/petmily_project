@@ -85,7 +85,12 @@ public class UserController {
             return "user_modify";
         }
         SiteUser siteUser = this.userService.getUser(id);
-        this.userService.modify(siteUser, userUpdateForm.getPassword(), userUpdateForm.getNickname(), userUpdateForm.getEmail());
+
+        String newPwd = (userUpdateForm.getPassword() == null) ? siteUser.getPassword() : userUpdateForm.getPassword();
+        String newNn = (userUpdateForm.getNickname() == null) ? siteUser.getNickname() : userUpdateForm.getNickname();
+        String newEm = (userUpdateForm.getEmail() == null) ? siteUser.getEmail() : userUpdateForm.getEmail();
+
+        this.userService.modify(siteUser, newPwd, newNn, newEm);
         return "main";
     }
 }
