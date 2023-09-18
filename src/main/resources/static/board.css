@@ -57,12 +57,20 @@ button {
 .my-btn-5 {
     font-family: "HakgyoansimWoojuR";
     font-size: 20px;
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
     width: 100px;
     height: 40px;
     line-height: 42px;
     padding: 0;
     border: none;
     background: rgba(0, 0, 0, 0);
+}
+
+.my-btn-5 a {
+    width: 100%;
+    padding: 10px 31.35px;
 }
 
 .my-btn-5:hover {
@@ -167,14 +175,14 @@ button {
 .table-rayout > .table-head {
     display: block;
     width: 100%;
-    font-size: 18px;
+    font-size: 17px;
     border-bottom: 1px solid #A5C8A0;
 }
 
 .table-rayout > .table-body {
     display: block;
     width: 100%;
-    font-size: 18px;
+    font-size: 17px;
 }
 
 .table-rayout > .table-body:hover {

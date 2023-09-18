@@ -20,7 +20,7 @@
             <button class="my-custom-btn my-btn-5"><span><a href="/question/notification">공 지</a></span></button>
             <button class="my-custom-btn my-btn-5"><span><a href="/question/news">뉴 스</a></span></button>
             <button class="my-custom-btn my-btn-5"><span><a href="/question/free">자 유</a></span></button>
-            <button class="my-custom-btn my-btn-5"><span><a href="/question/tip">팁</a></span></button>
+            <button class="my-custom-btn my-btn-5"><a href="/question/tip">팁</a></button>
         </div>
 
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -48,7 +48,7 @@
         <div class="th-date">작성일</div>
         <div class="th-hit">조회수</div>
     </div>
-    <div class="table-body">
+    <div th:each="question, loop : ${paging}" class="table-body">
         <div class="td-num" th:text="${question.id}">
         </div>
         <div class="td-title">
@@ -57,23 +57,46 @@
         <div class="td-writer">
             <span th:if="${question.author != null}" th:text="${question.author.username}"></span>
         </div>
-        <div class="td-date" th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+        <div class="td-date" th:text="${#temporals.format(question.createDate, 'HH:mm')}"></div>
         <div class="td-hit" th:text="${question.hit}"></div>
     </div>
-    <div class="btns">
-        <button class="paging-btn"><</button>
-        <button class="paging-btn">1</button>
-        <button class="paging-btn">2</button>
-        <button class="paging-btn">3</button>
-        <button class="paging-btn">4</button>
-        <button class="paging-btn">5</button>
-        <button class="paging-btn">6</button>
-        <button class="paging-btn">7</button>
-        <button class="paging-btn">8</button>
-        <button class="paging-btn">9</button>
-        <button class="paging-btn">10</button>
-        <button class="paging-btn">></button>
+    <div th:if="${!paging.isEmpty()}" class="btns">
+        <button th:classappend="${paging.number == 0} ? 'disabled'" class="paging-btn">
+            <a class="page-link" th:href="@{|?page=${paging.number}|}">
+                <span><</span>
+            </a>
+        </button>
+        <button th:each="page: ${#numbers.sequence(1, paging.totalPages)}"
+                th:classappend="${page == paging.number+1} ? 'active'" class="paging-btn">
+            <a th:text="${page}" class="page-link" th:href="@{|?page=${page-1}|}"></a>
+        </button>
+        <button th:classappend="${!paging.hasNext} ? 'disabled'" class="paging-btn">
+            <a class="page-link" th:href="@{|?page=${paging.number+2}|}">
+                <span>></span>
+            </a>
+        </button>
     </div>
 </div>
+</body>
 
+<script th:inline="javascript">
+    $(document).ready(function () {
+        $('.btns .paging-btn:first-child a').click(function (event) {
+            if (${paging.number == 0}) {
+                event.preventDefault(); // 기본 동작(이전 페이지로 이동)을 막음
+                alert('이전 리스트를 요청할 수 없습니다. 현재 첫 번째 페이지입니다.');
+            }
+        });
+    });
+</script>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        $('.btns .paging-btn:last-child a').click(function (event) {
+            if (${paging.number + 1 == paging.totalPages}) {
+                event.preventDefault(); // 기본 동작(다음 페이지로 이동)을 막음
+                alert('다음 리스트를 요청할 수 없습니다. 현재 마지막 페이지입니다.');
+            }
+        });
+    });
+</script>
 </html>
