@@ -1,3 +1,12 @@
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/style.css}" rel="stylesheet" type="text/css" />
+</head>
+
 <header class="top-bar">
     <div class="top-bar__in flex">
         <div class="w-0 flex-1 flex items-center pl-6">
@@ -34,15 +43,19 @@
                 <a href="#">고객지원</a>
                 <ul>
                     <li><a href="/user/QnA"><span>QnA</span></a></li>
-                    <li><a href="/user/inquiry"><span>1:1문의</span></a></li>
+                    <li><a href="/user/inquiry"><span>FAQ</span></a></li>
                 </ul>
             </li>
         </ul>
 
         <div class="w-0 flex-1 flex gap-2 items-center pr-6 justify-end">
             <div class="loginORlogout flex gap-1">
-                <a sec:authorize="isAnonymous()" href="/user/login"><button class="custom-btn btn-11">로그인</button></a>
-                <a sec:authorize="isAuthenticated()" href="/user/logout"><button class="custom-btn btn-11">로그아웃</button></a>
+                <a sec:authorize="isAnonymous()" href="/user/login">
+                    <button class="custom-btn btn-11">로그인</button>
+                </a>
+                <a sec:authorize="isAuthenticated()" href="/user/logout">
+                    <button class="custom-btn btn-11">로그아웃</button>
+                </a>
             </div>
 
             <div class="profile flex gap-1">
@@ -51,4 +64,3 @@
         </div>
     </div>
 </header>
-<script src="https://cdn.tailwindcss.com"></script>
