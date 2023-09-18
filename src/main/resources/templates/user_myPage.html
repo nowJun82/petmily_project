@@ -1,6 +1,8 @@
-<p>User id: <span th:text="${siteUser.id}"></span></p>
-<p>User username: <span th:text="${siteUser.username}"></span></p>
-<p>User nickname: <span th:text="${siteUser.nickname}"></span></p>
-<p>User email: <span th:text="${siteUser.email}"></span></p>
+<h2>마이 페이지</h2>
+<p>아이디 넘버: <span th:text="${siteUser.id}"></span></p>
+<p>아이디: <span th:text="${siteUser.username}"></span></p>
+<p>닉네임: <span th:text="${siteUser.nickname}"></span></p>
+<p>이메일: <span th:text="${siteUser.email}"></span></p>
 <a th:href="@{|/user/modify/${siteUser.id}|}">내 정보 수정하기</a>
 <a th:href="@{|/user/getList/${siteUser.id}|}">내 글 불러오기</a>
+<a th:href="@{|/user/delete/${siteUser.id}|}">회원 탈퇴</a>

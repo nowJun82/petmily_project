@@ -70,7 +70,7 @@ public class UserController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
-    public String userModify(UserUpdateForm userUpdateForm, @PathVariable Long id, Principal principal) {
+    public String userModify(UserUpdateForm userUpdateForm, @PathVariable Long id) {
         SiteUser siteUser = this.userService.getUser(id);
         userUpdateForm.setPassword(siteUser.getPassword());
         userUpdateForm.setNickname(siteUser.getNickname());
@@ -80,7 +80,7 @@ public class UserController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/modify/{id}")
-    public String userModify(@Valid UserUpdateForm userUpdateForm, BindingResult bindingResult, Principal principal, @PathVariable("id") Long id) {
+    public String userModify(@Valid UserUpdateForm userUpdateForm, BindingResult bindingResult, @PathVariable("id") Long id) {
         if (bindingResult.hasErrors()) {
             return "user_modify";
         }
