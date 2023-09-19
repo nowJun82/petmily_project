@@ -10,16 +10,16 @@ public class MapController {
 
     @GetMapping("/hospital")
     public String showHospital() {
-        return "map_hospital";
+        return "map/map_hospital";
     }
 
     @GetMapping("/hotel")
     public String showHotel() {
-        return "map_hotel";
+        return "map/map_hotel";
     }
 
     @GetMapping("/accommodations")
     public String showAccommodations() {
-        return "map_accommodations";
+        return "map/map_accommodations";
     }
 }

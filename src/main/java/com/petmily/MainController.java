@@ -22,4 +22,9 @@ public class MainController {
     public String login() {
         return "login_form";
     }
+
+    @GetMapping("map")
+    public String showMap() {
+        return "map/map";
+    }
 }
