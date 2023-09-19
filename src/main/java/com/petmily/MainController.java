@@ -19,8 +19,7 @@ public class MainController {
     }
 
     @GetMapping("login")
-    public String login(){
+    public String login() {
         return "login_form";
     }
-
 }
