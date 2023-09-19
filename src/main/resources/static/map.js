@@ -46,9 +46,13 @@ function addMarkersBasedOnURL() {
         }
     });
 
+<<<<<<< HEAD
+    // "/map/hospitel" 페이지에서 실행 중인 경우
+=======
     // 마커를 담을 배열 생성
     var markers = [];
 
+>>>>>>> 9904013404e501151579280ad1b3ccb7259d9f44
     if (currentPageURL === "/map/hospital") {
         var hospitalMarkerPositions = [
             {

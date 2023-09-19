@@ -31,7 +31,7 @@ public class QuestionService {
             throw new DataNotFoundException("question not found");
         }
     }
-    public void create(String subject, String content, String board) {
+    public void create(String subject, String content, String board,SiteUser user) {
         Integer boardid=0;
         if(board.equals("뉴스 게시판")){
             boardid=2;
@@ -47,6 +47,7 @@ public class QuestionService {
         q.setContent(content);
         q.setBoard(boardid);
         q.setCreateDate(LocalDateTime.now());
+        q.setAuthor(user);
         this.questionRepository.save(q);
     }
 
@@ -73,15 +74,8 @@ public class QuestionService {
         sorts.add(Sort.Order.desc("createDate"));
         Pageable pageable = PageRequest.of(page, 10,Sort.by(sorts));
         return this.questionRepository.findByBoard(board, pageable);
+//        return this.questionRepository.findQuestionsByKeywordAndBoard(board,pageable,spec);
     }
-//    public Page<Question> getList(int page, String kw) {
-//        List<Sort.Order> sorts = new ArrayList<>();
-//        sorts.add(Sort.Order.desc("createDate"));
-//        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-//        Specification<Question> spec = search(kw);
-//        return this.questionRepository.findAll(spec, pageable);
-////        return this.questionRepository.findAllByKeyword(kw, pageable);
-//    }
 
 
     public void modify(Question question, String subject, String content) {
@@ -95,13 +89,10 @@ public class QuestionService {
         this.questionRepository.delete(question);
     }
 
-    public void vote(Question question, SiteUser siteUser) {
-        question.getVoter().add(siteUser);
-        this.questionRepository.save(question);
-    }
     public List<Question> getListByBoard(Integer board) {
         return this.questionRepository.findByBoard(board);
     }
+
 }
 
 
