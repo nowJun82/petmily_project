@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.awt.datatransfer.Clipboard;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -32,4 +33,12 @@ public class UserService {
             throw new DataNotFoundException("siteuser not found");
         }
     }
+
+//    public SiteUser whenSocialLogin(String providerTypeCode, String username) {
+//        Optional<SiteUser> opSiteUser = findByUsername(username);
+//
+//        if (opSiteUser.isPresent()) return RsData.of("S-1", "로그인 되었습니다.", opSiteUser.get());
+//
+//        return join(providerTypeCode, username, "");
+//    }
 }

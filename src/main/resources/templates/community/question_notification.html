@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>펫밀리</title>
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/board.css">
 </head>
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -66,51 +67,73 @@
         </div>
     </div>
 </header>
-<body>
-<table border="1">
-    <thead>
-    <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>작성일</th>
-        <th>조회수</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="question, loop : ${paging}">
-        <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
-        <td>
-            <a th:href="@{|/question/notification/detail/${question.id}|}" th:text="${question.subject}"></a>
-        </td>
-        <td><span th:if="${question.author != null}" th:text="${question.author.username}"></span></td>
-        <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
-        <td th:text="${question.hit}"></td>
-    </tr>
-    </tbody>
-</table>
-<!-- 페이징처리 시작 -->
-<div th:if="${!paging.isEmpty()}">
-    <ul class="pagination justify-content-center">
-        <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-            <a class="page-link"
-               th:href="@{|?page=${paging.number-1}|}">
-                <span>이전</span>
-            </a>
-        </li>
-        <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
-            th:if="${page >= paging.number-5 and page <= paging.number+5}"
-            th:classappend="${page == paging.number} ? 'active'"
-            class="page-item">
-            <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
-        </li>
-        <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-            <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
-                <span>다음</span>
-            </a>
-        </li>
-    </ul>
+<section>
+    <div class="board-top-bar">
+        <div class="board-top-bar-title">
+            커 뮤 니 티
+        </div>
+
+        <div class="frame">
+            <button class="my-custom-btn my-btn-5"><span><a href="/question/notification">공 지</a></span></button>
+            <button class="my-custom-btn my-btn-5"><span><a href="/question/news">뉴 스</a></span></button>
+            <button class="my-custom-btn my-btn-5"><span><a href="/question/free">자 유</a></span></button>
+            <button class="my-custom-btn my-btn-5"><span><a href="/question/tip">팁</a></span></button>
+        </div>
+
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M598.97 114.72L0 0 0 120 1200 120 1200 0 598.97 114.72z" class="shape-fill"></path>
+        </svg>
+    </div>
+</section>
+<div class="search-only">
+    <select name="choice" id="choice" class="choice-category" tabindex="-1">
+        <option value="1" selected="selected">제목</option>
+        <option value="2">내용</option>
+        <option value="3">제목+내용</option>
+        <option value="4">작성자</option>
+    </select>
+    <input type="text" placeholder=" 검색어 입력">
+    <button class="search-btn">검색</button>
 </div>
-<!-- 페이징처리 끝 -->
-</body>
+
+<div class="table-rayout">
+    <div class="table-head">
+        <div class="th-num">번호</div>
+        <div class="th-title">제목</div>
+        <div class="th-writer">작성자</div>
+        <div class="th-date">작성일</div>
+        <div class="th-hit">조회수</div>
+    </div>
+    <div class="table-body" th:each="question, loop : ${paging}">
+        <div class="td-num" th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></div>
+        <div class="td-title"><a th:href="@{|/question/notification/detail/${question.id}|}"
+                                 th:text="${question.subject}"></a></div>
+        <div class="td-writer" th:if="${question.author != null}" th:text="${question.author.username}"></div>
+        <div class="td-date" th:text="${#temporals.format(question.createDate, 'MM-dd')}"></div>
+        <div class="td-hit" th:text="${question.hit}"></div>
+    </div>
+    <!-- 페이징처리 시작 -->
+    <div th:if="${!paging.isEmpty()}">
+        <ul class="btns">
+            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{|?page=${paging.number-1}|}">
+                    <span><</span>
+                </a>
+            </li>
+            <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+                th:if="${page >= paging.number-5 and page <= paging.number+5}"
+                th:classappend="${page == paging.number} ? 'active'"
+                class="page-item">
+                <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+            </li>
+            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+                    <span>></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- 페이징처리 끝 -->
+</div>
 </html>
