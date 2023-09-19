@@ -1,5 +1,6 @@
 package com.petmily.question;
 
+import com.petmily.user.SiteUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -15,6 +16,7 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
     List<Question> findBySubjectLike(String subject);
     Page<Question> findAll(Pageable pageable);
     Page<Question> findAll(Specification<Question> spec, Pageable pageable);
+    List<Question> findByAuthor(SiteUser author);
 
     @Query("select "
             + "distinct q "

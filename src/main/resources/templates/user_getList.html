@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Questions</title>
+</head>
+<body>
+<h1>User Questions</h1>
+<ul>
+    <th>questionID</th>
+    <th>Subject</th>
+    <th>Content</th>
+    <th>Author</th>
+    <th>CreateDate</th>
+    <tr th:each="question : ${userQuestions}">
+        <br>
+        <a th:text="${question.id}"></a>
+        <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
+        <a th:text="${question.content}"></a>
+        <a th:text="${question.author.username}"></a>
+        <a th:text="${question.createDate}"></a>
+    </tr>
+</ul>
+</body>
+</html>

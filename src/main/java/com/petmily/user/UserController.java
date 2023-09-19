@@ -7,7 +7,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 
@@ -19,17 +22,22 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/QnA")
-    public String QnA(){return "user_QnA";}
+    public String QnA() {
+        return "user_QnA";
+    }
+
     @GetMapping("/inquiry")
-    public String inquiry(){return "user_inquiry";}
+    public String inquiry() {
+        return "user_inquiry";
+    }
 
     @GetMapping("/login")
-    public String login(UserCreateForm userCreateForm){
+    public String login(UserCreateForm userCreateForm) {
         return "login_form";
     }
 
     @GetMapping("/signup")
-    public String signup(UserCreateForm userCreateForm){
+    public String signup(UserCreateForm userCreateForm) {
         return "login_form";
     }
 
@@ -47,11 +55,11 @@ public class UserController {
         try {
             userService.create(userCreateForm.getUsername(), userCreateForm.getPassword1(),
                     userCreateForm.getEmail(), userCreateForm.getNickname());
-        }catch(DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException e) {
             e.printStackTrace();
             bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
             return "login_form";
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             bindingResult.reject("signupFailed", e.getMessage());
             return "login_form";
@@ -72,7 +80,6 @@ public class UserController {
     @GetMapping("/modify/{id}")
     public String userModify(UserUpdateForm userUpdateForm, @PathVariable Long id) {
         SiteUser siteUser = this.userService.getUser(id);
-        userUpdateForm.setPassword(siteUser.getPassword());
         userUpdateForm.setNickname(siteUser.getNickname());
         userUpdateForm.setEmail(siteUser.getEmail());
         return "user_modify";
@@ -85,12 +92,24 @@ public class UserController {
             return "user_modify";
         }
         SiteUser siteUser = this.userService.getUser(id);
-
-        String newPwd = (userUpdateForm.getPassword() == null) ? siteUser.getPassword() : userUpdateForm.getPassword();
         String newNn = (userUpdateForm.getNickname() == null) ? siteUser.getNickname() : userUpdateForm.getNickname();
         String newEm = (userUpdateForm.getEmail() == null) ? siteUser.getEmail() : userUpdateForm.getEmail();
 
-        this.userService.modify(siteUser, newPwd, newNn, newEm);
+        this.userService.modify(siteUser, newNn, newEm);
         return "main";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/passModify")
+    public String passModify() {
+        return "password_modify";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/passModify")
+    public String passModify(Principal principal, String password) {
+        SiteUser siteUser = userService.getUser(principal.getName());
+        userService.passModify(siteUser, password);
+        return "redirect:/user/myPage";
     }
 }

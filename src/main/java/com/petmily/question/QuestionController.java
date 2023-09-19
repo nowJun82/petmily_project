@@ -22,7 +22,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Controller
 public class QuestionController {
-
     private final QuestionService questionService;
     private final UserService userService;
 
@@ -120,5 +119,15 @@ public class QuestionController {
         SiteUser siteUser = this.userService.getUser(principal.getName());
         this.questionService.vote(question, siteUser);
         return String.format("redirect:/question/detail/%s", id);
+    }
+
+    @GetMapping("/user/getList")
+    public String getQuestionsByUser(Model model, Principal principal) {
+        String username = principal.getName();
+        SiteUser user = userService.getUser(username);
+        List<Question> userQuestions = questionService.findByAuthor(user);
+        model.addAttribute("userQuestions", userQuestions);
+
+        return "user_getList";
     }
 }

@@ -4,16 +4,18 @@ import com.petmily.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class UserService {
-
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     public SiteUser create(String username, String password, String email, String nickname) {
         SiteUser user = new SiteUser();
         user.setUsername(username);
@@ -24,7 +26,7 @@ public class UserService {
     }
 
     public SiteUser getUser(String username) {
-        Optional<SiteUser> siteUser = this.userRepository.findByusername(username);
+        Optional<SiteUser> siteUser = this.userRepository.findByUsername(username);
         if (siteUser.isPresent()) {
             return siteUser.get();
         } else {
@@ -41,10 +43,17 @@ public class UserService {
         }
     }
 
-    public void modify(SiteUser siteUser, String password, String nickname, String email) {
-        siteUser.setPassword(password);
+    @Transactional
+    public void modify(SiteUser siteUser, String nickname, String email) {
         siteUser.setNickname(nickname);
         siteUser.setEmail(email);
         this.userRepository.save(siteUser);
+    }
+
+    @Transactional
+    public void passModify(SiteUser siteUser, String password) {
+        if (password != null && password.length() > 0) {
+            siteUser.setPassword(passwordEncoder.encode(password));
+        }
     }
 }
