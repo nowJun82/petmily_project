@@ -13,13 +13,11 @@ import java.util.List;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Getter
 public class Member {
-    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;

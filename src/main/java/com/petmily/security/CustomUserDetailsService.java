@@ -1,3 +1,4 @@
+
 package com.petmily.security;
 
 import com.petmily.domain.member.entity.Member;
@@ -22,3 +23,4 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new User(member.getUsername(), member.getPassword(), member.getGrantedAuthorities());
     }
 }
+
