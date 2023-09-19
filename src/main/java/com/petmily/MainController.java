@@ -27,5 +27,4 @@ public class MainController {
     public String showMap() {
         return "map/map";
     }
-
 }

@@ -125,7 +125,7 @@ button {
     height: 35px;
     align-items: center;
     text-align: center;
-    justify-content: right;
+    justify-content: left;
     margin: 100px 25% 10px 25%;
     width: 50%;
 }
@@ -133,12 +133,12 @@ button {
 .search-only > input {
     height: 35px;
     min-width: 420px;
-    width: 780px;
+    width: 480px;
     margin: 0 10px 0 10px;
     font-size: 18px;
     color: black;
     border-radius: 7.5px;
-    border: 1px solid black;
+    border: 1px solid #c8c8c8;
     background-color: #fff;
 }
 
@@ -147,7 +147,7 @@ button {
     font-size: 18px;
     color: black;
     border-radius: 7.5px;
-    border: 1px solid black;
+    border: 1px solid #c8c8c8;
     background-color: #fff;
 }
 
@@ -158,12 +158,24 @@ button {
     color: black;
     margin: 0;
     border-radius: 7.5px;
-    border: 1px solid black;
+    border: 1px solid #c8c8c8;
     background-color: #fff;
 }
 
-.search-only > .search-btn:hover {
-    background-color: #A5C8A0;
+.search-only > .write-btn {
+    width: 75px;
+    height: 35px;
+    font-size: 18px;
+    color: black;
+    margin-left: 225px;
+    justify-content: right;
+    border-radius: 7.5px;
+    border: 1px solid #c8c8c8;
+    background-color: #fff;
+}
+
+.search-only > .write-btn a {
+    padding: 8.5px 14px;
 }
 
 .table-rayout {
