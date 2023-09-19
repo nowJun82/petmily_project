@@ -15,11 +15,5 @@ class PetmilyApplicationTests {
 	private QuestionService questionService;
 	@Test
 	void testJpa() {
-		for (int i = 1; i <= 130; i++) {
-			String subject = String.format("팁 게시판 테스트 데이터입니다:[%03d]", i);
-			String content = "내용무";
-			String board ="팁 게시판";
-			this.questionService.create(subject, content,board);
-		}
 	}
 }

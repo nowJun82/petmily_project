@@ -16,7 +16,6 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
     List<Question> findBySubjectLike(String subject);
     Page<Question> findByBoard(Integer board, Pageable pageable);
     Page<Question> findAll(Specification<Question> spec, Pageable pageable);
-
     @Query("select "
             + "distinct q "
             + "from Question q "
@@ -30,4 +29,5 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
             + "   or a.content like %:kw% "
             + "   or u2.username like %:kw% ")
     Page<Question> findAllByKeyword(@Param("kw") String kw, Pageable pageable);
+
 }
