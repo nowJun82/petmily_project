@@ -1,12 +1,15 @@
 package com.petmily.answer;
 
+import com.petmily.comment.Comment;
 import com.petmily.question.Question;
 import com.petmily.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -25,6 +28,7 @@ public class Answer {
     // private Integer questionId;
     @ManyToOne
     private Question question;
+
     // question_id 라는 칼럼이 생김
     @ManyToOne
     private SiteUser author;
@@ -33,4 +37,7 @@ public class Answer {
 
     @ManyToMany
     Set<SiteUser> voter;
+
+    @OneToMany(mappedBy = "answer")
+    private List<Comment> commentList;
 }

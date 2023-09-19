@@ -1,20 +1,59 @@
-<html layout:decorate="~{layout}">
-<div layout:fragment="content" class="container my-3">
-    <form th:action="@{/user/login}" method="post">
-        <div th:if="${param.error}">
-            <div class="alert alert-danger">
-                사용자ID 또는 비밀번호를 확인해 주세요.
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>펫밀리 > 로그인&회원가입</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/login.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/style.css}" rel="stylesheet" type="text/css"/>
+    <div th:replace="header :: header"></div>
+</head>
+
+<body>
+
+<div class="form-structor">
+    <div class="signup">
+        <h2 class="form-title" id="signup">회원가입</h2>
+        <form th:action="@{/user/signup}" th:object="${userCreateForm}" method="post">
+            <div class="form-holder">
+                <input id="user" type="text" th:field="*{username}" class="input" placeholder="아이디"/>
+                <input type="password" th:field="*{password1}" class="input" placeholder="비밀번호"/>
+                <input type="password" th:field="*{password2}" class="input" placeholder="비밀번호 확인"/>
+                <input type="text" th:field="*{email}" class="input" placeholder="이메일"/>
+                <input type="text" th:field="*{nickname}" class="input" placeholder="닉네임"/>
+            </div>
+            <button type="submit" class="submit-btn">가입하기</button>
+        </form>
+    </div>
+    <div class="login slide-up">
+        <div class="center">
+            <h2 class="form-title" id="login">로그인</h2>
+            <form th:action="@{/user/login}" method="post">
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger" style="font-size: 15px;">
+                        사용자ID 또는 비밀번호를 확인해 주세요.
+                    </div>
+                </div>
+                <div class="form-holder">
+                    <input type="text" name="username" id="username" placeholder="아이디" class="input">
+                    <input type="password" name="password" id="password" placeholder="비밀번호" class="input">
+                </div>
+                <button type="submit" class="submit-btn">로그인</button>
+            </form>
+            <div class="hr"></div>
+            <div class="social-foot-lnk">
+                <label for="tab-1">소셜 서비스로 로그인</label>
+            </div>
+            <div class="social-container">
+                <a href="#" class="social-kakao"></a>
+                <a href="#" class="social-naver"></a>
+                <a href="#" class="social-google"></a>
             </div>
         </div>
-        <div class="mb-3">
-            <label for="username" class="form-label">사용자ID</label>
-            <input type="text" name="username" id="username" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">비밀번호</label>
-            <input type="password" name="password" id="password" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary">로그인</button>
-    </form>
+    </div>
 </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/login.js"></script>
 </html>

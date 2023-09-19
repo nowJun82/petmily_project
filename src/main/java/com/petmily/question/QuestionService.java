@@ -1,5 +1,6 @@
 package com.petmily.question;
 
+import com.petmily.DataNotFoundException;
 import com.petmily.answer.Answer;
 import com.petmily.user.SiteUser;
 import jakarta.persistence.criteria.*;
@@ -19,12 +20,39 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class QuestionService {
+
     private final QuestionRepository questionRepository;
+
+    public Question getQuestion(Integer id) {
+        Optional<Question> question = this.questionRepository.findById(id);
+        if (question.isPresent()) {
+            return question.get();
+        } else {
+            throw new DataNotFoundException("question not found");
+        }
+    }
+    public void create(String subject, String content, String board) {
+        Integer boardid=0;
+        if(board.equals("뉴스 게시판")){
+            boardid=2;
+        }
+        else if(board.equals("자유 게시판")){
+            boardid=3;
+        }
+        else if(board.equals("팁 게시판")){
+            boardid=4;
+        }
+        Question q = new Question();
+        q.setSubject(subject);
+        q.setContent(content);
+        q.setBoard(boardid);
+        q.setCreateDate(LocalDateTime.now());
+        this.questionRepository.save(q);
+    }
 
     private Specification<Question> search(String kw) {
         return new Specification<>() {
             private static final long serialVersionUID = 1L;
-
             @Override
             public Predicate toPredicate(Root<Question> q, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 query.distinct(true);  // 중복을 제거
@@ -40,36 +68,21 @@ public class QuestionService {
         };
     }
 
-    public List<Question> getList() {
-        return this.questionRepository.findAll();
-    }
-
-    public Question getQuestion(Integer id) {
-        Optional<Question> question = this.questionRepository.findById(id);
-        if (question.isPresent()) {
-            return question.get();
-        } else {
-            throw new DataNotFoundException("question not found");
-        }
-    }
-
-    public void create(String subject, String content, SiteUser user) {
-        Question q = new Question();
-        q.setSubject(subject);
-        q.setContent(content);
-        q.setCreateDate(LocalDateTime.now());
-        q.setAuthor(user);
-        this.questionRepository.save(q);
-    }
-
-    public Page<Question> getList(int page, String kw) {
+    public Page<Question> getList(Integer board, int page) {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("createDate"));
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-        Specification<Question> spec = search(kw);
-        return this.questionRepository.findAll(spec, pageable);
-//        return this.questionRepository.findAllByKeyword(kw, pageable);
+        Pageable pageable = PageRequest.of(page, 10,Sort.by(sorts));
+        return this.questionRepository.findByBoard(board, pageable);
     }
+//    public Page<Question> getList(int page, String kw) {
+//        List<Sort.Order> sorts = new ArrayList<>();
+//        sorts.add(Sort.Order.desc("createDate"));
+//        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+//        Specification<Question> spec = search(kw);
+//        return this.questionRepository.findAll(spec, pageable);
+////        return this.questionRepository.findAllByKeyword(kw, pageable);
+//    }
+
 
     public void modify(Question question, String subject, String content) {
         question.setSubject(subject);
@@ -86,7 +99,9 @@ public class QuestionService {
         question.getVoter().add(siteUser);
         this.questionRepository.save(question);
     }
-
+    public List<Question> getListByBoard(Integer board) {
+        return this.questionRepository.findByBoard(board);
+    }
 }
 
 

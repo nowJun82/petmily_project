@@ -1,74 +1,47 @@
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>PETMILY OFFICIAL</title>
     <link rel="stylesheet" href="/style.css">
+=======
+    <title>펫밀리</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/main.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/style.css}" rel="stylesheet" type="text/css"/>
+    <div th:replace="header :: header"></div>
+>>>>>>> 788170395e54cfb1dc5434a3fce919d9fb6298f7
 </head>
-<body>
-<header>
-    <div class="logo">
-        <img src="logo.png" alt="로고">
-    </div>
-    <nav>
-        <ul class="main-menu">
-            <li class="menu-item">
-                <a href="#">소개</a>
-                <div class="sub-menu">
-                    <ul>
-                        <li><a href="#">소개</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li class="menu-item">
-                <a href="#">커뮤니티</a>
-                <div class="sub-menu">
-                    <ul>
-                        <li><a href="#">뉴스</a></li>
-                        <li><a href="#">공지 게시판</a></li>
-                        <li><a href="#">자유 게시판</a></li>
-                        <li><a href="#">팁 게시판</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li class="menu-item">
-                <a href="#">스토어</a>
-                <div class="sub-menu">
-                    <ul>
-                        <li><a href="#">의류/뭐시기</a></li>
-                        <li><a href="#">서브 카테고리 3.2</a></li>
-                        <li><a href="#">서브 카테고리 3.3</a></li>
-                        <li><a href="#">서브 카테고리 3.4</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li class="menu-item">
-                <a href="#">맵</a>
-                <div class="sub-menu">
-                    <ul>
-                        <li><a href="#">병원</a></li>
-                        <li><a href="#">호텔</a></li>
-                        <li><a href="#">숙소</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li class="menu-item">
-                <a href="#">고객지원</a>
-                <div class="sub-menu">
-                    <ul>
-                        <li><a href="#">Q&A</a></li>
-                        <li><a href="#">고객센터</a></li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
-    </nav>
-    <div class="user-info">
-        <img src="user-icon.png" alt="내 정보">
-    </div>
-</header>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="script.js"></script>
+<body>
+<swiper-container class="mySwiper" pagination="true" pagination-clickable="true" navigation="true" space-between="30"
+                  centered-slides="true" autoplay-delay="7000" autoplay-disable-on-interaction="false">
+    <swiper-slide><img src="/slide_1.jpg" alt="image_01"></swiper-slide>
+    <swiper-slide><img src="/slide_2.jpg" alt="image_02"></swiper-slide>
+    <swiper-slide><img src="/slide_3.jpg" alt="image_03"></swiper-slide>
+    <div class="autoplay-progress" slot="container-end">
+        <svg viewBox="0 0 48 48">
+            <circle cx="24" cy="24" r="20"></circle>
+        </svg>
+        <span></span>
+    </div>
+</swiper-container>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+    const progressCircle = document.querySelector(".autoplay-progress svg");
+    const progressContent = document.querySelector(".autoplay-progress span");
+
+    const swiperEl = document.querySelector("swiper-container");
+    swiperEl.addEventListener("autoplaytimeleft", (e) => {
+      const [swiper, time, progress] = e.detail;
+      progressCircle.style.setProperty("--progress", 1 - progress);
+      progressContent.textContent = `${Math.ceil(time / 1000)}s`;
+    });
+</script>
 </body>
-</html>

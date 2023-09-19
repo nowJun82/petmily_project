@@ -1,0 +1,127 @@
+@font-face {
+    font-family: 'HakgyoansimWoojuR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimWoojuR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.board-top-bar {
+    color: #A5C8A0;
+    display: block;
+    font-size: 40px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-family: "HakgyoansimWoojuR";
+    background: #fff;
+}
+
+.board-top-bar > .board-top-bar-title {
+    padding-top: 50px;
+}
+
+.frame {
+    margin: 25px 0;
+    padding-top: 25px;
+    display: inline-flex;
+    text-align: center;
+    justify-content: center;
+    align-items: bottom;
+    height: 52px;
+    border-top: 1px solid black;
+}
+
+button {
+    margin: 5px;
+}
+
+.my-custom-btn {
+    width: 130px;
+    height: 40px;
+    color: #A5C8A0;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    box-shadow: inset 1px 1px 1px 0px rgba(255, 255, 255, .1),
+        1px 1px 1px 0px rgba(165, 200, 160, .1),
+        1px 1px 1px 0px rgba(165, 200, 160, .1);
+    outline: none;
+}
+
+/* 5 */
+.my-btn-5 {
+    font-family: "HakgyoansimWoojuR";
+    font-size: 20px;
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    width: 100px;
+    height: 40px;
+    line-height: 42px;
+    padding: 0;
+    margin: 0 5px;
+    border: none;
+    background: rgba(0, 0, 0, 0);
+}
+
+.my-btn-5 a {
+    width: 100%;
+    padding: 10px 31.35px;
+}
+
+.my-btn-5:hover {
+    color: #A5C8A0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.my-btn-5:before,
+.my-btn-5:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+    width: 0;
+    background: #A5C8A0;
+    box-shadow:
+        -1px -1px 5px 0px #fff,
+        7px 7px 20px 0px #0003,
+        4px 4px 5px 0px #0002;
+    transition: 400ms ease all;
+}
+
+.my-btn-5:after {
+    right: inherit;
+    top: inherit;
+    left: 0;
+    bottom: 0;
+}
+
+.my-btn-5:hover:before,
+.my-btn-5:hover:after {
+    width: 100%;
+    transition: 800ms ease all;
+}
+
+.board-top-bar svg {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 88px;
+}
+
+.board-top-bar .shape-fill {
+    fill: rgb(255, 255, 235);
+}
+
+.map {
+    margin: 100px 0 0 25%;
+    width: 35%;
+    height: 400px;
+}
