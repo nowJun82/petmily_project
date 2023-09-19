@@ -1,7 +1,6 @@
 package com.petmily.security;
-
-import com.petmily.domain.member.entity.Member;
-import com.petmily.domain.member.service.MemberService;
+import com.petmily.user.SiteUser;
+import com.petmily.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -19,7 +18,7 @@ import java.util.Map;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
-    private final MemberService memberService;
+    private final UserService userService;
 
     // 카카오톡 로그인이 성공할 때 마다 이 함수가 실행된다.
     @Override
@@ -32,15 +31,14 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         Map attributesProperties = (Map) attributes.get("properties");
         String nickname = (String) attributesProperties.get("nickname");
-        String profileImgUrl = (String) attributesProperties.get("profile_image");
 
         String providerTypeCode = userRequest.getClientRegistration().getRegistrationId().toUpperCase();
 
         String username = providerTypeCode + "__%s".formatted(oauthId);
 
-        Member member = memberService.whenSocialLogin(providerTypeCode, username, nickname, profileImgUrl);
+        SiteUser siteUser = userService.whenSocialLogin(providerTypeCode, username, nickname);
 
-        return new CustomOAuth2User(member.getUsername(), member.getPassword(), member.getGrantedAuthorities());
+        return new CustomOAuth2User(siteUser.getUsername(), siteUser.getPassword(), siteUser.getGrantedAuthorities());
     }
 }
 

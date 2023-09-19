@@ -1,4 +1,4 @@
-/*
+
 package com.petmily.user;
 
 
@@ -37,5 +37,3 @@ public class UserSecurityService implements UserDetailsService {
         return new User(siteUser.getUsername(), siteUser.getPassword(), authorities);
     }
 }
-
-*/
