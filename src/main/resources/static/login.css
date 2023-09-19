@@ -296,6 +296,8 @@ body {
 
 .social-container {
   text-align: center;
+  justify-content: center;
+  align-items: center;
   margin-top: 12.5px;
   margin-bottom: -66px;
 }
@@ -306,8 +308,25 @@ body {
 	border-radius: 50%;
 	display: inline-flex;
 	justify-content: center;
-	align-items: center;
 	margin: 0 7.5px;
 	height: 35px;
 	width: 35px;
+}
+
+.social-kakao {
+  background-image: url("/kakao.png");
+  background-size: 27px;
+  background-position: center;
+}
+
+.social-naver {
+  background-image: url("/naver.png");
+  background-size: 25px;
+  background-position: center;
+}
+
+.social-google {
+  background-image: url("/google.png");
+  background-size: 25px;
+  background-position: center;
 }

@@ -3,76 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>펫밀리</title>
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/board.css">
+    <title>펫밀리 > 커뮤니티 > 자유 게시판</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/board.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/style.css}" rel="stylesheet" type="text/css"/>
+    <div th:replace="header :: header"></div>
 </head>
-
-<script src="https://cdn.tailwindcss.com"></script>
-
-<header class="top-bar">
-    <div class="top-bar__in flex">
-        <div class="w-0 flex-1 flex items-center pl-6">
-            <a href="/">
-                <img src="/PETMILY_LOGO.png" alt="PETMILY">
-            </a>
-        </div>
-
-        <ul class="top-bar__menu">
-            <li>
-                <a href="#">소개</a>
-            </li>
-            <li>
-                <a href="#">커뮤니티</a>
-                <ul>
-                    <li><a href="/question/notification"><span>공지</span></a></li>
-                    <li><a href="/question/news"><span>뉴스</span></a></li>
-                    <li><a href="/question/free"><span>자유 게시판</span></a></li>
-                    <li><a href="/question/tip"><span>팁 게시판</span></a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">스토어</a>
-            </li>
-            <li>
-                <a href="#">맵</a>
-                <ul>
-                    <li><a href="#"><span>병원</span></a></li>
-                    <li><a href="#"><span>호텔</span></a></li>
-                    <li><a href="#"><span>숙소</span></a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">고객지원</a>
-                <ul>
-                    <li><a href="/user/QnA"><span>QnA</span></a></li>
-                    <li><a href="/user/inquiry"><span>1:1문의</span></a></li>
-                </ul>
-            </li>
-        </ul>
-
-        <div class="w-0 flex-1 flex gap-2 items-center pr-6 justify-end">
-            <div class="loginORlogout flex gap-1">
-                <a sec:authorize="isAnonymous()" href="/user/login">
-                    <button class="custom-btn btn-11">로그인</button>
-                </a>
-                <a sec:authorize="isAuthenticated()" href="/user/logout">
-                    <button class="custom-btn btn-11">로그아웃</button>
-                </a>
-            </div>
-
-            <div class="profile flex gap-1">
-                <a href="#"><img src="/profile.png" alt="PROFILE"></a>
-            </div>
-        </div>
-    </div>
-</header>
 
 <section>
     <div class="board-top-bar">
         <div class="board-top-bar-title">
             커 뮤 니 티
         </div>
+
         <div class="frame">
             <button class="my-custom-btn my-btn-5"><span><a href="/question/notification">공 지</a></span></button>
             <button class="my-custom-btn my-btn-5"><span><a href="/question/news">뉴 스</a></span></button>
@@ -80,12 +23,12 @@
             <button class="my-custom-btn my-btn-5"><span><a href="/question/tip">팁</a></span></button>
         </div>
 
-
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path d="M598.97 114.72L0 0 0 120 1200 120 1200 0 598.97 114.72z" class="shape-fill"></path>
         </svg>
     </div>
 </section>
+
 <div class="search-only">
     <select name="choice" id="choice" class="choice-category" tabindex="-1">
         <option value="1" selected="selected">제목</option>
@@ -105,37 +48,55 @@
         <div class="th-date">작성일</div>
         <div class="th-hit">조회수</div>
     </div>
-    <div class="table-body" th:each="question, loop : ${paging}">
-        <div class="td-num" th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></div>
-        <div class="td-title"><a th:href="@{|/question/free/detail/${question.id}|}"
-                                 th:text="${question.subject}"></a></div>
-        <div class="td-writer" th:if="${question.author != null}" th:text="${question.author.username}"></div>
-        <div class="td-date" th:text="${#temporals.format(question.createDate, 'MM-dd')}"></div>
+    <div th:each="question, loop : ${paging}" class="table-body">
+        <div class="td-num" th:text="${question.id}">
+        </div>
+        <div class="td-title">
+            <a th:href="@{|/question/free/detail/${question.id}|}" th:text="${question.subject}"></a>
+        </div>
+        <div class="td-writer">
+            <span th:if="${question.author != null}" th:text="${question.author.username}"></span>
+        </div>
+        <div class="td-date" th:text="${#temporals.format(question.createDate, 'HH:mm')}"></div>
         <div class="td-hit" th:text="${question.hit}"></div>
     </div>
-    <!-- 페이징처리 시작 -->
-    <div th:if="${!paging.isEmpty()}">
-        <ul class="btns">
-            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-                <a class="page-link"
-                   th:href="@{|?page=${paging.number-1}|}">
-                    <span><</span>
-                </a>
-            </li>
-            <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
-                th:if="${page >= paging.number-5 and page <= paging.number+5}"
-                th:classappend="${page == paging.number} ? 'active'"
-                class="page-item">
-                <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
-            </li>
-            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-                <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
-                    <span>></span>
-                </a>
-            </li>
-        </ul>
+    <div th:if="${!paging.isEmpty()}" class="btns">
+        <button th:classappend="${paging.number == 0} ? 'disabled'" class="paging-btn">
+            <a class="page-link" th:href="@{|?page=${paging.number}|}">
+                <span><</span>
+            </a>
+        </button>
+        <button th:each="page: ${#numbers.sequence(1, paging.totalPages)}"
+                th:classappend="${page == paging.number+1} ? 'active'" class="paging-btn">
+            <a th:text="${page}" class="page-link" th:href="@{|?page=${page-1}|}"></a>
+        </button>
+        <button th:classappend="${!paging.hasNext} ? 'disabled'" class="paging-btn">
+            <a class="page-link" th:href="@{|?page=${paging.number+2}|}">
+                <span>></span>
+            </a>
+        </button>
     </div>
-    <!-- 페이징처리 끝 -->
-<a th:href="@{/question/create}" class="btn btn-primary">글쓰기</a>
-    </div>
+</div>
+</body>
+
+<script th:inline="javascript">
+    $(document).ready(function () {
+        $('.btns .paging-btn:first-child a').click(function (event) {
+            if (${paging.number == 0}) {
+                event.preventDefault(); // 기본 동작(이전 페이지로 이동)을 막음
+                alert('이전 리스트를 요청할 수 없습니다. 현재 첫 번째 페이지입니다.');
+            }
+        });
+    });
+</script>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        $('.btns .paging-btn:last-child a').click(function (event) {
+            if (${paging.number + 1 == paging.totalPages}) {
+                event.preventDefault(); // 기본 동작(다음 페이지로 이동)을 막음
+                alert('다음 리스트를 요청할 수 없습니다. 현재 마지막 페이지입니다.');
+            }
+        });
+    });
+</script>
 </html>
