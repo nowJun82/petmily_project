@@ -6,10 +6,8 @@ import jakarta.persistence.Id;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -18,6 +16,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Builder
 @Getter
 public class Member {
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
@@ -42,6 +41,7 @@ public class Member {
     }
 
     public boolean isAdmin() {
+
         return "admin".equals(username);
     }
 }
