@@ -12,10 +12,8 @@ public class PetmilyApplication {
     public static void main(String[] args) {
         SpringApplication.run(PetmilyApplication.class, args);
     }
-
-
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder () {
         return new BCryptPasswordEncoder();
     }
-}
+    }

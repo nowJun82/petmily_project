@@ -1,4 +1,5 @@
 package com.petmily.security;
+
 import com.petmily.user.SiteUser;
 import com.petmily.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         String providerTypeCode = userRequest.getClientRegistration().getRegistrationId().toUpperCase();
 
+        oauthId = switch (providerTypeCode) { // 추가 한 내용들 오류 발생 방지
+            case "NAVER" -> ((Map<String, String>) oAuth2User.getAttributes().get("response")).get("id");
+            default -> oAuth2User.getName();
+        }; // 여기까지
+
         String username = providerTypeCode + "__%s".formatted(oauthId);
 
         SiteUser siteUser = userService.whenSocialLogin(providerTypeCode, username, nickname);
@@ -56,5 +62,6 @@ class CustomOAuth2User extends User implements OAuth2User {
     @Override
     public String getName() {
         return getUsername();
+
     }
 }
