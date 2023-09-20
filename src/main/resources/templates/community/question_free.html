@@ -58,7 +58,7 @@
             <a th:href="@{|/question/free/detail/${question.id}|}" th:text="${question.subject}"></a>
         </div>
         <div class="td-writer">
-            <span th:if="${question.author != null}" th:text="${question.author.username}"></span>
+            <span th:if="${question.author != null}" th:text="${question.author.nickname}"></span>
         </div>
         <div class="td-date" th:text="${#temporals.format(question.createDate, 'HH:mm')}"></div>
         <div class="td-hit" th:text="${question.hit}"></div>
