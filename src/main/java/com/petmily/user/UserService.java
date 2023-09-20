@@ -4,6 +4,7 @@ import com.petmily.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.awt.datatransfer.Clipboard;
 import java.util.Optional;
@@ -32,6 +33,20 @@ public class UserService {
         } else {
             throw new DataNotFoundException("siteuser not found");
         }
+    }
+
+    @Transactional
+    public SiteUser whenSocialLogin(String providerTypeCode, String username, String nickname) {
+        Optional<SiteUser> oSiteUser = findByUsername(username);
+
+        if (oSiteUser.isPresent()) return oSiteUser.get();
+
+        // 소셜 로그인를 통한 가입시 비번은 없다.
+        return create(username, "", "",nickname); // 최초 로그인 시 딱 한번 실행
+    }
+
+    private Optional<SiteUser> findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
 //    public SiteUser whenSocialLogin(String providerTypeCode, String username) {
