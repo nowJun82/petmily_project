@@ -14,7 +14,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class AnswerService {
-
     private final AnswerRepository answerRepository;
     private final EntityManager entityManager;
 

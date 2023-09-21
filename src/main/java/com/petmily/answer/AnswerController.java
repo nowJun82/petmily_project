@@ -23,12 +23,6 @@ public class AnswerController {
     private final AnswerService answerService;
     private final UserService userService;
 
-    @DeleteMapping("/{answerId}")
-    public void deleteAnswer(@PathVariable Long answerId) {
-        answerService.deleteAnswerById(answerId);
-    }
-
-
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/news/{id}")
     public String createNewsAnswer(Model model, @PathVariable("id") Integer id,
