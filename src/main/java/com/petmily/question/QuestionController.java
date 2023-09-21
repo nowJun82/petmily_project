@@ -141,7 +141,7 @@ public class QuestionController {
 
         this.questionService.modify(question, questionForm.getSubject(), questionForm.getContent());
 
-        return String.format("redirect:/");
+        return String.format("redirect:/question/free/detail/%d", id);
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -152,7 +152,7 @@ public class QuestionController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
         this.questionService.delete(question);
-        return "redirect:/";
+        return "redirect:/question/free";
     }
 
     @GetMapping("/user/getList")
