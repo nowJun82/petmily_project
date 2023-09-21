@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
-import java.util.List;
 
 @RequestMapping("/question")
 @RequiredArgsConstructor
@@ -101,7 +100,7 @@ public class QuestionController {
         else if(questionForm.getBoard().equals("팁 게시판")){
             return "redirect:/question/tip";
         }
-        return "redirect:/question/news"; // 질문 저장후 질문목록으로 이동
+        return "redirect:/question/news"; // 질문 저장후 질문 목록으로 이동
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -128,7 +127,7 @@ public class QuestionController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         this.questionService.modify(question, questionForm.getSubject(), questionForm.getContent());
-        return String.format("redirect:/");
+        return String.format("redirect:/question/free/detail/%d", id);
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -139,7 +138,7 @@ public class QuestionController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
         this.questionService.delete(question);
-        return "redirect:/";
+        return "redirect:/question/free";
     }
 
 }
