@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>내 글 목록</title>
+</head>
+<body>
+<h1>내 글 목록</h1>
+<ul>
+    <th>글 번호</th>
+    <th>제목</th>
+    <th>내용</th>
+    <th>글쓴이</th>
+    <th>게시일</th>
+    <tr th:each="question : ${userQuestions}">
+        <br>
+        <a th:text="${question.id}"></a>
+        <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
+        <a th:text="${question.content}"></a>
+        <a th:text="${question.author.username}"></a>
+        <a th:text="${question.createDate}"></a>
+    </tr>
+</ul>
+</body>
+</html>

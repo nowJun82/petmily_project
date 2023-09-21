@@ -1,6 +1,7 @@
 package com.petmily.user;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,7 +18,6 @@ import java.util.Map;
 @Setter
 @Entity
 public class SiteUser implements OAuth2User, UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     // 데이터베이스에서 자동으로 ID 값을 생성함
@@ -31,6 +31,9 @@ public class SiteUser implements OAuth2User, UserDetails {
     /*private String email;*/ // -> 주석 푸는 즉시 네이버, 구글 간편 로그인 구현 안됨 오류코드: 500
     // 소셜 로그인 카카오, 네이버, 구글을 사용할 때 일부 서비스에서는 이메일 정보를 제공하지 않아서
     // 데이터베이스에 빈 이메일 값이 입력되면서 오류가 발생해서 이메일 필드는 일단 주석 처리했습니다.
+    @Column(unique = true)
+    @Email
+    private String email;
 
     @Override
     public Map<String, Object> getAttributes() { // OAuth2 인증 후 사용자의 속성 정보를 반환하는 메서드 현재 구현에서는 사용하지 않으므로 null을 반환합니다.

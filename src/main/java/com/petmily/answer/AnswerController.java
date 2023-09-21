@@ -23,6 +23,12 @@ public class AnswerController {
     private final AnswerService answerService;
     private final UserService userService;
 
+    @DeleteMapping("/{answerId}")
+    public void deleteAnswer(@PathVariable Long answerId) {
+        answerService.deleteAnswerById(answerId);
+    }
+
+
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/news/{id}")
     public String createNewsAnswer(Model model, @PathVariable("id") Integer id,
@@ -36,6 +42,7 @@ public class AnswerController {
         this.answerService.create(question, answerForm.getContent(),siteUser);
         return String.format("redirect:/question/news/detail/%s", id);
     }
+
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/free/{id}")
     public String createFreeAnswer(Model model, @PathVariable("id") Integer id,
@@ -49,6 +56,7 @@ public class AnswerController {
         this.answerService.create(question, answerForm.getContent(),siteUser);
         return String.format("redirect:/question/free/detail/%s", id);
     }
+
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/tip/{id}")
     public String createTipAnswer(Model model, @PathVariable("id") Integer id,

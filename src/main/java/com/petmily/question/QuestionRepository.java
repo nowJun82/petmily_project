@@ -1,6 +1,7 @@
 package com.petmily.question;
 
 import com.petmily.board.Board;
+import com.petmily.user.SiteUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -40,4 +41,5 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
             """)
     Page<Question> findAllByKeyword(@Param("boardId") long boardId, @Param("kw") String kw, Pageable pageable);
 
+    List<Question> findByAuthor(SiteUser author);
 }
