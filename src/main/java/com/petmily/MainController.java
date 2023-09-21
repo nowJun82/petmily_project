@@ -19,8 +19,10 @@ public class MainController {
     }
 
     @GetMapping("login")
-    public String login(){
+    public String login() {
         return "login_form";
     }
 
+    @GetMapping("map")
+    public String showMap() { return "map"; }
 }

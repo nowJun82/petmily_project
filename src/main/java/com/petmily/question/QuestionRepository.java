@@ -12,9 +12,10 @@ import java.util.List;
 
 public interface QuestionRepository extends JpaRepository<Question, Integer> {
     Question findBySubject(String subject);
+    List<Question> findByBoard(Integer board);
     Question findBySubjectAndContent(String subject, String content);
     List<Question> findBySubjectLike(String subject);
-    Page<Question> findAll(Pageable pageable);
+    Page<Question> findByBoard(Integer board, Pageable pageable);
     Page<Question> findAll(Specification<Question> spec, Pageable pageable);
     List<Question> findByAuthor(SiteUser author);
 
@@ -31,4 +32,5 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
             + "   or a.content like %:kw% "
             + "   or u2.username like %:kw% ")
     Page<Question> findAllByKeyword(@Param("kw") String kw, Pageable pageable);
+
 }

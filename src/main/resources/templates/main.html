@@ -1,88 +1,34 @@
 <html lang="ko">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>펫밀리</title>
-  <link rel="stylesheet" href="/style.css">
-  <link rel="stylesheet" href="/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>펫밀리</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/main.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/style.css}" rel="stylesheet" type="text/css"/>
+    <div th:replace="header :: header"></div>
 </head>
 
-<script src="https://cdn.tailwindcss.com"></script>
-
-<header class="top-bar">
-  <div class="top-bar__in flex">
-    <div class="w-0 flex-1 flex items-center pl-6">
-      <a href="/">
-        <img src="/PETMILY_LOGO.png" alt="PETMILY">
-      </a>
-    </div>
-
-    <ul class="top-bar__menu">
-      <li>
-        <a href="#">소개</a>
-      </li>
-      <li>
-        <a href="#">커뮤니티</a>
-        <ul>
-          <li><a href="/question/notification"><span>공지</span></a></li>
-          <li><a href="/question/news"><span>뉴스</span></a></li>
-          <li><a href="/question/list"><span>자유 게시판</span></a></li>
-          <li><a href="/question/tip"><span>팁 게시판</span></a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">스토어</a>
-      </li>
-      <li>
-        <a href="#">맵</a>
-        <ul>
-          <li><a href="#"><span>병원</span></a></li>
-          <li><a href="#"><span>호텔</span></a></li>
-          <li><a href="#"><span>숙소</span></a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">고객지원</a>
-        <ul>
-          <li><a href="/user/QnA"><span>QnA</span></a></li>
-          <li><a href="/user/inquiry"><span>1:1문의</span></a></li>
-        </ul>
-      </li>
-    </ul>
-
-    <div class="w-0 flex-1 flex gap-2 items-center pr-6 justify-end">
-      <div class="loginORlogout flex gap-1">
-        <a sec:authorize="isAnonymous()" href="/user/login"><button class="custom-btn btn-11">로그인</button></a>
-        <a sec:authorize="isAuthenticated()" href="/user/logout"><button class="custom-btn btn-11">로그아웃</button></a>
-      </div>
-
-      <div class="profile flex gap-1">
-        <a href="#"><img src="/profile.png" alt="PROFILE"></a>
-      </div>
-    </div>
-  </div>
-</header>
-
 <body>
-    <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" navigation="true" space-between="30"
-    centered-slides="true" autoplay-delay="7000" autoplay-disable-on-interaction="false">
+<swiper-container class="mySwiper" pagination="true" pagination-clickable="true" navigation="true" space-between="30"
+                  centered-slides="true" autoplay-delay="7000" autoplay-disable-on-interaction="false">
     <swiper-slide><img src="/slide_1.jpg" alt="image_01"></swiper-slide>
     <swiper-slide><img src="/slide_2.jpg" alt="image_02"></swiper-slide>
     <swiper-slide><img src="/slide_3.jpg" alt="image_03"></swiper-slide>
     <div class="autoplay-progress" slot="container-end">
-      <svg viewBox="0 0 48 48">
-        <circle cx="24" cy="24" r="20"></circle>
-      </svg>
-      <span></span>
+        <svg viewBox="0 0 48 48">
+            <circle cx="24" cy="24" r="20"></circle>
+        </svg>
+        <span></span>
     </div>
-  </swiper-container>
+</swiper-container>
 
-  <!-- Swiper JS -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
 
-  <!-- Initialize Swiper -->
-  <script>
+<!-- Initialize Swiper -->
+<script>
     const progressCircle = document.querySelector(".autoplay-progress svg");
     const progressContent = document.querySelector(".autoplay-progress span");
 
@@ -92,5 +38,5 @@
       progressCircle.style.setProperty("--progress", 1 - progress);
       progressContent.textContent = `${Math.ceil(time / 1000)}s`;
     });
-  </script>
+</script>
 </body>

@@ -117,26 +117,6 @@ public class UserController {
         return "redirect:/user/myPage";
     }
 
-//    @PreAuthorize("isAuthenticated()")
-//    @GetMapping("/delete")
-//    public String userDelete(Principal principal,Model model) {
-//        SiteUser siteUser = userService.getUser(principal.getName());
-//        model.addAttribute("siteUser", siteUser);
-//        userService.delete(siteUser);
-//        SecurityContextHolder.clearContext();
-//        return "user_delete";
-//    }
-//
-//    @PreAuthorize("isAuthenticated()")
-//    @PostMapping("/delete")
-//    public String userDelete() {
-////        SiteUser siteUser = userService.getUser(principal.getName());
-////        model.addAttribute("siteUser", siteUser);
-////        userService.delete(siteUser);
-////        SecurityContextHolder.clearContext();
-//        return "redirect:/";
-//    }
-
     @PreAuthorize("isAuthenticated()")
     @GetMapping("delete")
     public String userDelete(Principal principal, Model model) {

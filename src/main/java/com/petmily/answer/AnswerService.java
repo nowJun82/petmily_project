@@ -28,8 +28,15 @@ public class AnswerService {
         }
     }
 
-
-    public Answer create(Question question, String content, SiteUser author) {
+    public void create(Question question, String content,SiteUser author) {
+        Answer answer = new Answer();
+        answer.setQuestion(question);
+        answer.setContent(content);
+        answer.setCreateDate(LocalDateTime.now());
+        answer.setAuthor(author);
+        this.answerRepository.save(answer);
+    }
+    public Answer create2(Question question, String content, SiteUser author) {
         Answer answer = new Answer();
         answer.setContent(content);
         answer.setCreateDate(LocalDateTime.now());

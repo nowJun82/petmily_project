@@ -1,67 +1,16 @@
 <html lang="ko">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>펫밀리 > 로그인&회원가입</title>
-  <link rel="stylesheet" href="/style.css">
-  <link rel="stylesheet" href="/login.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>펫밀리 > 로그인&회원가입</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/login.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/style.css}" rel="stylesheet" type="text/css"/>
+    <div th:replace="header :: header"></div>
 </head>
 
-<script src="https://cdn.tailwindcss.com"></script>
-
-<header class="top-bar">
-  <div class="top-bar__in flex">
-    <div class="w-0 flex-1 flex items-center pl-6">
-      <a href="/">
-        <img src="/PETMILY_LOGO.png" alt="PETMILY">
-      </a>
-    </div>
-
-    <ul class="top-bar__menu">
-      <li>
-        <a href="#">소개</a>
-      </li>
-      <li>
-        <a href="#">커뮤니티</a>
-        <ul>
-          <li><a href="/question/notification"><span>공지</span></a></li>
-          <li><a href="/question/news"><span>뉴스</span></a></li>
-          <li><a href="/question/list"><span>자유 게시판</span></a></li>
-          <li><a href="/question/tip"><span>팁 게시판</span></a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">스토어</a>
-      </li>
-      <li>
-        <a href="#">맵</a>
-        <ul>
-          <li><a href="#"><span>병원</span></a></li>
-          <li><a href="#"><span>호텔</span></a></li>
-          <li><a href="#"><span>숙소</span></a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">고객지원</a>
-        <ul>
-          <li><a href="/user/QnA"><span>QnA</span></a></li>
-          <li><a href="/user/inquiry"><span>1:1문의</span></a></li>
-        </ul>
-      </li>
-    </ul>
-
-    <div class="w-0 flex-1 flex gap-2 items-center pr-6 justify-end">
-      <div class="loginORlogout flex gap-1">
-        <a href="/user/login"><button class="custom-btn btn-11">로그인</button></a>
-      </div>
-
-      <div class="profile flex gap-1">
-        <a href="#"><img src="/profile.png" alt="PROFILE"></a>
-      </div>
-    </div>
-  </div>
-</header>
+<body>
 
 <div class="form-structor">
     <div class="signup">
@@ -86,26 +35,25 @@
                         사용자ID 또는 비밀번호를 확인해 주세요.
                     </div>
                 </div>
-            <div class="form-holder">
-                <input type="text" name="username" id="username" placeholder="아이디" class="input">
-                <input type="password" name="password" id="password" placeholder="비밀번호" class="input">
-            </div>
-            <button type="submit"  class="submit-btn">로그인</button>
+                <div class="form-holder">
+                    <input type="text" name="username" id="username" placeholder="아이디" class="input">
+                    <input type="password" name="password" id="password" placeholder="비밀번호" class="input">
+                </div>
+                <button type="submit" class="submit-btn">로그인</button>
             </form>
             <div class="hr"></div>
             <div class="social-foot-lnk">
                 <label for="tab-1">소셜 서비스로 로그인</label>
             </div>
             <div class="social-container">
-                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-
+                <a href="/oauth2/authorization/kakao" class="social-kakao"></a>
+                <a href="/oauth2/authorization/naver" class="social-naver"></a>
+                <a href="/oauth2/authorization/google" class="social-google"></a>
             </div>
         </div>
-
     </div>
 </div>
+</body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/login.js"></script>
 </html>
