@@ -29,6 +29,7 @@ public class Question {
     @ManyToOne
     private Board board;
 
+
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Answer> answerList;
 
