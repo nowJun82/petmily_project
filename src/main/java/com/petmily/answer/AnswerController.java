@@ -36,6 +36,7 @@ public class AnswerController {
         this.answerService.create(question, answerForm.getContent(),siteUser);
         return String.format("redirect:/question/news/detail/%s", id);
     }
+
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/free/{id}")
     public String createFreeAnswer(Model model, @PathVariable("id") Integer id,
@@ -49,6 +50,7 @@ public class AnswerController {
         this.answerService.create(question, answerForm.getContent(),siteUser);
         return String.format("redirect:/question/free/detail/%s", id);
     }
+
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/tip/{id}")
     public String createTipAnswer(Model model, @PathVariable("id") Integer id,
