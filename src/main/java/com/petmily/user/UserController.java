@@ -1,16 +1,20 @@
 package com.petmily.user;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 
@@ -96,7 +100,7 @@ public class UserController {
         String newEm = (userUpdateForm.getEmail() == null) ? siteUser.getEmail() : userUpdateForm.getEmail();
 
         this.userService.modify(siteUser, newNn, newEm);
-        return "main";
+        return "redirect:/user/myPage";
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -111,5 +115,62 @@ public class UserController {
         SiteUser siteUser = userService.getUser(principal.getName());
         userService.passModify(siteUser, password);
         return "redirect:/user/myPage";
+    }
+
+//    @PreAuthorize("isAuthenticated()")
+//    @GetMapping("/delete")
+//    public String userDelete(Principal principal,Model model) {
+//        SiteUser siteUser = userService.getUser(principal.getName());
+//        model.addAttribute("siteUser", siteUser);
+//        userService.delete(siteUser);
+//        SecurityContextHolder.clearContext();
+//        return "user_delete";
+//    }
+//
+//    @PreAuthorize("isAuthenticated()")
+//    @PostMapping("/delete")
+//    public String userDelete() {
+////        SiteUser siteUser = userService.getUser(principal.getName());
+////        model.addAttribute("siteUser", siteUser);
+////        userService.delete(siteUser);
+////        SecurityContextHolder.clearContext();
+//        return "redirect:/";
+//    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("delete")
+    public String userDelete(Principal principal, Model model) {
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+        model.addAttribute("siteUser", siteUser);
+        return "user_delete"; // 변경된 부분: 리다이렉트가 아니라 뷰 이름을 반환합니다.
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/delete")
+    public String userDelete(HttpServletRequest request, @RequestParam("password") String password,
+                             HttpServletResponse response, Principal principal, RedirectAttributes attributes) {
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+
+        if (userService.isCorrectPassword(siteUser.getUsername(), password)) {
+            // 비밀번호가 일치하는 경우 사용자를 삭제
+            this.userService.deleteUserAndRelatedData(siteUser.getUsername());
+
+            // 사용자 삭제 후 로그아웃 처리
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            if (auth != null) {
+                new SecurityContextLogoutHandler().logout(request, response, auth);
+            }
+
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                session.invalidate();
+            }
+
+            return "redirect:/";
+        } else {
+            // 비밀번호가 일치하지 않을 때 오류 메시지를 전달하고 회원 탈퇴 페이지로 리다이렉트합니다.
+            attributes.addFlashAttribute("error", "비밀번호가 일치하지 않습니다. 다시 시도해주세요.");
+            return "redirect:/user/delete";
+        }
     }
 }

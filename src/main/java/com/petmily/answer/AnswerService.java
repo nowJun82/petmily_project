@@ -3,8 +3,10 @@ package com.petmily.answer;
 import com.petmily.DataNotFoundException;
 import com.petmily.question.Question;
 import com.petmily.user.SiteUser;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -14,6 +16,17 @@ import java.util.Optional;
 public class AnswerService {
 
     private final AnswerRepository answerRepository;
+    private final EntityManager entityManager;
+
+    @Transactional
+    public void deleteAnswerById(Long answerId) {
+        Answer answerToDelete = entityManager.find(Answer.class, answerId);
+        if (answerToDelete != null) {
+            entityManager.remove(answerToDelete);
+        } else {
+            // 엔티티가 존재하지 않을 때 처리할 내용을 추가할 수 있습니다.
+        }
+    }
 
 
     public Answer create(Question question, String content, SiteUser author) {

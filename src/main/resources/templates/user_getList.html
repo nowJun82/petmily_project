@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User Questions</title>
+    <title>내 글 목록</title>
 </head>
 <body>
-<h1>User Questions</h1>
+<h1>내 글 목록</h1>
 <ul>
-    <th>questionID</th>
-    <th>Subject</th>
-    <th>Content</th>
-    <th>Author</th>
-    <th>CreateDate</th>
+    <th>글 번호</th>
+    <th>제목</th>
+    <th>내용</th>
+    <th>글쓴이</th>
+    <th>게시일</th>
     <tr th:each="question : ${userQuestions}">
         <br>
         <a th:text="${question.id}"></a>

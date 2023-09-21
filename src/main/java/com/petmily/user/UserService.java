@@ -1,11 +1,16 @@
 package com.petmily.user;
 
 import com.petmily.DataNotFoundException;
+import com.petmily.answer.Answer;
+import com.petmily.answer.AnswerRepository;
+import com.petmily.question.Question;
+import com.petmily.question.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -14,6 +19,8 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final QuestionRepository questionRepository;
+    private final AnswerRepository answerRepository;
 
     @Transactional
     public SiteUser create(String username, String password, String email, String nickname) {
@@ -54,6 +61,36 @@ public class UserService {
     public void passModify(SiteUser siteUser, String password) {
         if (password != null && password.length() > 0) {
             siteUser.setPassword(passwordEncoder.encode(password));
+        }
+    }
+
+    public void delete(SiteUser siteUser) {
+        this.userRepository.delete(siteUser);
+    }
+
+    public boolean isCorrectPassword(String username, String password) {
+        SiteUser user = getUser(username);
+        String actualPassword = user.getPassword();
+        return passwordEncoder.matches(password, actualPassword);
+    }
+
+    @Transactional
+    public void deleteUserAndRelatedData(String username) {
+        // 사용자 조회
+        SiteUser siteUser = userRepository.findByUsername(username).orElse(null);
+
+        if (siteUser != null) {
+            List<Question> userQuestions = questionRepository.findByAuthor(siteUser);
+
+            for (Question question : userQuestions) {
+                List<Answer> centerAnswers = question.getAnswerList();
+                centerAnswers.clear();
+                answerRepository.deleteAll(centerAnswers);
+            }
+
+            questionRepository.deleteAll(userQuestions);
+
+            userRepository.delete(siteUser);
         }
     }
 }
