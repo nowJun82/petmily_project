@@ -1,6 +1,7 @@
 package com.petmily.question;
 
 import com.petmily.answer.Answer;
+import com.petmily.board.Board;
 import com.petmily.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,7 +9,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
+
 
 @Getter
 @Setter
@@ -25,10 +26,8 @@ public class Question {
     private String content;
 
     private LocalDateTime createDate;
-
-    private Integer hit;
-
-    private Integer board;
+    @ManyToOne
+    private Board board;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Answer> answerList;
@@ -38,7 +37,7 @@ public class Question {
 
     private LocalDateTime modifyDate;
 
-    @ManyToMany
-    Set<SiteUser> voter;
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int view;
 
 }

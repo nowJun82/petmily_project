@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>펫밀리 > 커뮤니티 > 팁</title>
+    <title>펫밀리 > 커뮤니티 > 뉴스</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link th:href="@{/board.css}" rel="stylesheet" type="text/css"/>
     <link th:href="@{/style.css}" rel="stylesheet" type="text/css"/>
@@ -28,19 +28,13 @@
     </div>
 </section>
 
-<div class="search-only">
-    <select name="choice" id="choice" class="choice-category" tabindex="-1">
-        <option value="1" selected="selected">제목</option>
-        <option value="2">내용</option>
-        <option value="3">제목+내용</option>
-        <option value="4">작성자</option>
-    </select>
-    <input type="text" placeholder=" 검색어 입력">
+<form class="search-only">
+    <input type="text" placeholder=" 검색어 입력" name="kw">
     <button class="search-btn">검색</button>
-    <button class="write-btn" >
+    <button class="write-btn">
         <a href="/question/create">글쓰기</a>
     </button>
-</div>
+</form>
 
 <div class="table-rayout">
     <div class="table-head">
@@ -54,13 +48,13 @@
         <div class="td-num" th:text="${question.id}">
         </div>
         <div class="td-title">
-            <a th:href="@{|/question/free/detail/${question.id}|}" th:text="${question.subject}"></a>
+            <a th:href="@{|/question/tip/detail/${question.id}|}" th:text="${question.subject}"></a>
         </div>
         <div class="td-writer">
-            <span th:if="${question.author != null}" th:text="${question.author.username}"></span>
+            <span th:if="${question.author != null}" th:text="${question.author.nickname}"></span>
         </div>
-        <div class="td-date" th:text="${#temporals.format(question.createDate, 'HH:mm')}"></div>
-        <div class="td-hit" th:text="${question.hit}"></div>
+        <div class="td-date" th:text="${#temporals.format(question.createDate, 'MM-dd')}"></div>
+        <div class="td-hit" th:text="${question.view}"></div>
     </div>
     <div th:if="${!paging.isEmpty()}" class="btns">
         <button th:classappend="${paging.number == 0} ? 'disabled'" class="paging-btn">
