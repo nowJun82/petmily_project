@@ -79,16 +79,19 @@ public class UserService {
         SiteUser siteUser = userRepository.findByUsername(username).orElse(null);
 
         if (siteUser != null) {
+            // 사용자가 작성한 question 가져오기
             List<Question> userQuestions = questionRepository.findByAuthor(siteUser);
 
+            // question에 연결된 Answer 삭제
             for (Question question : userQuestions) {
-                List<Answer> centerAnswers = question.getAnswerList();
-                centerAnswers.clear();
-                answerRepository.deleteAll(centerAnswers);
+                List<Answer> questionAnswers = question.getAnswerList();
+                answerRepository.deleteAll(questionAnswers); // Answer 데이터 삭제
             }
 
+            // 사용자가 작성한 Center 삭제
             questionRepository.deleteAll(userQuestions);
 
+            // 사용자 삭제
             userRepository.delete(siteUser);
         }
     }
