@@ -81,6 +81,7 @@ public class UserService {
         if (siteUser != null) {
             // 사용자가 작성한 question 가져오기
             List<Question> userQuestions = questionRepository.findByAuthor(siteUser);
+            List<Answer> userAnswers = answerRepository.findByAuthor(siteUser);
 
             // question에 연결된 Answer 삭제
             for (Question question : userQuestions) {
@@ -90,6 +91,7 @@ public class UserService {
 
             // 사용자가 작성한 Center 삭제
             questionRepository.deleteAll(userQuestions);
+            answerRepository.deleteAll(userAnswers);
 
             // 사용자 삭제
             userRepository.delete(siteUser);
