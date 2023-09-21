@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
+import java.util.List;
 
 @RequestMapping("/question")
 @RequiredArgsConstructor
 @Controller
 public class QuestionController {
-
     private final QuestionService questionService;
     private final UserService userService;
     private final BoardService boardService;
@@ -155,4 +155,13 @@ public class QuestionController {
         return "redirect:/";
     }
 
+    @GetMapping("/user/getList")
+    public String getQuestionsByUser(Model model, Principal principal) {
+        String username = principal.getName();
+        SiteUser user = userService.getUser(username);
+        List<Question> userQuestions = questionService.findByAuthor(user);
+        model.addAttribute("userQuestions", userQuestions);
+
+        return "user_getList";
+    }
 }

@@ -3,6 +3,8 @@ package com.petmily.question;
 import com.petmily.DataNotFoundException;
 import com.petmily.board.Board;
 import com.petmily.user.SiteUser;
+import com.petmily.user.UserRepository;
+import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,7 +20,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class QuestionService {
-
     private final QuestionRepository questionRepository;
 
     public Question getQuestion(Integer id) {
@@ -56,12 +57,13 @@ public class QuestionService {
         Question q = new Question();
         q.setBoard(board);
         q.setAuthor(user);
-
         q.setSubject(subject);
         q.setContent(content);
         q.setCreateDate(LocalDateTime.now());
         this.questionRepository.save(q);
     }
+
+    public List<Question> findByAuthor(SiteUser author) {
+        return questionRepository.findByAuthor(author);
+    }
 }
-
-
