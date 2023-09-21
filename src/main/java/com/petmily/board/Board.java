@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

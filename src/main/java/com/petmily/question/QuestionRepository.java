@@ -40,5 +40,6 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
             )
             """)
     Page<Question> findAllByKeyword(@Param("boardId") long boardId, @Param("kw") String kw, Pageable pageable);
+
     List<Question> findByAuthor(SiteUser author);
 }
