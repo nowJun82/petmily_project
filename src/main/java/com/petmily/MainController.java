@@ -24,7 +24,5 @@ public class MainController {
     }
 
     @GetMapping("map")
-    public String showMap() {
-        return "map/map";
-    }
+    public String showMap() { return "map"; }
 }
