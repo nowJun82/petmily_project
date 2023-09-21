@@ -2,6 +2,8 @@ package com.petmily.question;
 
 
 import com.petmily.answer.AnswerForm;
+import com.petmily.board.Board;
+import com.petmily.board.BoardService;
 import com.petmily.user.SiteUser;
 import com.petmily.user.UserService;
 import jakarta.validation.Valid;
@@ -16,21 +18,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
+import java.util.List;
 
 @RequestMapping("/question")
 @RequiredArgsConstructor
 @Controller
 public class QuestionController {
-
     private final QuestionService questionService;
     private final UserService userService;
-
-    @GetMapping("/notification")
-    public String notification(Model model,@RequestParam(value="page", defaultValue="0") int page) {
-        Page<Question> paging = this.questionService.getList(1,page);
-        model.addAttribute("paging", paging);
-        return "community/question_notification";
-    }
+    private final BoardService boardService;
 
     @GetMapping(value = "/notification/detail/{id}")
     public String notificationDetail(Model model, @PathVariable("id") Integer id) {
@@ -39,79 +35,93 @@ public class QuestionController {
         return "detail/notification_detail";
     }
 
-    @GetMapping("/news")
-    public String news(Model model,@RequestParam(value="page", defaultValue="0") int page) {
-        Page<Question> paging = this.questionService.getList(2,page);
-        model.addAttribute("paging", paging);
-        return "community/question_news";
-    }
     @GetMapping(value = "/news/detail/{id}")
-    public String newsDetail(Model model, @PathVariable("id") Integer id,AnswerForm answerForm) {
+    public String newsDetail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
         Question newsQuestion = this.questionService.getQuestion(id);
         model.addAttribute("question", newsQuestion);
         return "detail/news_detail";
     }
 
-    @GetMapping("/free")
-    public String free(Model model,@RequestParam(value="page", defaultValue="0") int page) {
-        Page<Question> paging = this.questionService.getList(3,page);
-        model.addAttribute("paging", paging);
-        return "community/question_free";
-    }
     @GetMapping(value = "/free/detail/{id}")
-    public String freeDetail(Model model, @PathVariable("id") Integer id,AnswerForm answerForm) {
+    public String freeDetail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
         Question freeQuestion = this.questionService.getQuestion(id);
         model.addAttribute("question", freeQuestion);
         return "detail/free_detail";
     }
-    @GetMapping("/tip")
-    public String tip(Model model,@RequestParam(value="page", defaultValue="0") int page) {
-        Page<Question> paging = this.questionService.getList(4,page);
-        model.addAttribute("paging", paging);
-        return "community/question_tip";
-    }
+
     @GetMapping(value = "/tip/detail/{id}")
-    public String tipDetail(Model model, @PathVariable("id") Integer id,AnswerForm answerForm) {
+    public String tipDetail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
         Question tipQuestion = this.questionService.getQuestion(id);
         model.addAttribute("question", tipQuestion);
         return "detail/tip_detail";
     }
 
+    //리스트 함수
+    @GetMapping("/notification")
+    public String notification(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw) {
+        Page<Question> paging = this.questionService.getList(page, kw, 1L);
+        model.addAttribute("paging", paging);
+        return "community/question_notification";
+    }
+
+    //리스트 함수
+    @GetMapping("/news")
+    public String news(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw) {
+        Page<Question> paging = this.questionService.getList(page, kw, 2L);
+        model.addAttribute("paging", paging);
+        return "community/question_news";
+    }
+
+    //리스트 함수
+    @GetMapping("/free")
+    public String free(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw) {
+        Page<Question> paging = this.questionService.getList(page, kw, 3L);
+        model.addAttribute("paging", paging);
+        model.addAttribute("kw", kw);
+        return "community/question_free";
+    }
+
+    //리스트 함수
+    @GetMapping("/tip")
+    public String tip(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "kw", defaultValue = "") String kw) {
+        Page<Question> paging = this.questionService.getList(page, kw, 4L);
+        model.addAttribute("paging", paging);
+        return "community/question_tip";
+    }
+
+    //글 생성 함수
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
-    public String questionCreate(QuestionForm questionForm) {
+    public String questionCreate(Model model, QuestionForm questionForm) {
+        model.addAttribute("boards", boardService.findAll());
         return "question_form";
     }
+
+    //글 생성 함수
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
-    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult,Principal principal) {
-        if (bindingResult.hasErrors()) {
-            return "question_form";
-        }
+    public String questionCreate(Model model, @Valid QuestionForm questionForm, Principal principal) {
         SiteUser siteUser = this.userService.getUser(principal.getName());
-        this.questionService.create(questionForm.getSubject(), questionForm.getContent(),questionForm.getBoard(),siteUser);
-//        if(){
-        if(questionForm.getBoard().equals("뉴스 게시판")){
-            return "redirect:/question/news";
-        }
-        else if(questionForm.getBoard().equals("자유 게시판")){
-            return "redirect:/question/free";
-        }
-        else if(questionForm.getBoard().equals("팁 게시판")){
-            return "redirect:/question/tip";
-        }
-        return "redirect:/question/news"; // 질문 저장후 질문 목록으로 이동
+        Board board = boardService.findById(questionForm.getBoardId()).get();
+
+        this.questionService.create(board, questionForm.getSubject(), questionForm.getContent(), siteUser);
+        return "redirect:/question/" + board.getCode();
     }
+
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
     public String questionModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal) {
         Question question = this.questionService.getQuestion(id);
-        if(!question.getAuthor().getUsername().equals(principal.getName())) {
+
+        if (!question.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
+
+        questionForm.setBoardId(question.getBoard().getId());
         questionForm.setSubject(question.getSubject());
         questionForm.setContent(question.getContent());
+
         return "question_form";
     }
 
@@ -122,11 +132,15 @@ public class QuestionController {
         if (bindingResult.hasErrors()) {
             return "question_form";
         }
+
         Question question = this.questionService.getQuestion(id);
+
         if (!question.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
+
         this.questionService.modify(question, questionForm.getSubject(), questionForm.getContent());
+
         return String.format("redirect:/question/free/detail/%d", id);
     }
 
@@ -141,4 +155,13 @@ public class QuestionController {
         return "redirect:/question/free";
     }
 
+    @GetMapping("/user/getList")
+    public String getQuestionsByUser(Model model, Principal principal) {
+        String username = principal.getName();
+        SiteUser user = userService.getUser(username);
+        List<Question> userQuestions = questionService.findByAuthor(user);
+        model.addAttribute("userQuestions", userQuestions);
+
+        return "user_getList";
+    }
 }
