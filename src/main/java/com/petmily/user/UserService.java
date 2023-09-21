@@ -6,7 +6,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.awt.datatransfer.Clipboard;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -19,7 +18,7 @@ public class UserService {
     public SiteUser create(String username, String password, String email, String nickname) {
         SiteUser user = new SiteUser();
         user.setUsername(username);
-        user.setEmail(email);
+        /*user.setEmail(email);*/
         user.setPassword(passwordEncoder.encode(password));
         user.setNickname(nickname);
         this.userRepository.save(user);
