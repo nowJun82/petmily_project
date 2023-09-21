@@ -33,6 +33,7 @@ public class QuestionService {
     }
     public void create(String subject, String content, String board,SiteUser user) {
         Integer boardid=0;
+
         if(board.equals("뉴스 게시판")){
             boardid=2;
         }
@@ -47,7 +48,7 @@ public class QuestionService {
         q.setContent(content);
         q.setBoard(boardid);
         q.setCreateDate(LocalDateTime.now());
-        q.setAuthor(user);
+        q.setAuthor(user); // -> 여기서 member 를 추가 시켜야 소셜 로그인에서 게시물을 쓸 수 있다.
         this.questionRepository.save(q);
     }
 
