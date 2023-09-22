@@ -14,15 +14,12 @@ public class CommonUtil {
     @Autowired
     private BoardRepository boardRepository;
 
-
     public String markdown(String markdown) {
         Parser parser = Parser.builder().build();
         Node document = parser.parse(markdown);
         HtmlRenderer renderer = HtmlRenderer.builder().build();
         return renderer.render(document);
     }
-
-
 
     public void dataCreaete() {
         String[] names = {"공지", "뉴스", "자유", "팁"};
@@ -33,7 +30,5 @@ public class CommonUtil {
             board.setCode(codes[i]);
             boardRepository.save(board);
         }
-
-
     }
 }

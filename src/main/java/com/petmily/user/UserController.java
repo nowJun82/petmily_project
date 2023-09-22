@@ -82,10 +82,11 @@ public class UserController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
-    public String userModify(UserUpdateForm userUpdateForm, @PathVariable Long id) {
+    public String userModify(UserUpdateForm userUpdateForm, @PathVariable Long id, Model model) {
         SiteUser siteUser = this.userService.getUser(id);
         userUpdateForm.setNickname(siteUser.getNickname());
         userUpdateForm.setEmail(siteUser.getEmail());
+        model.addAttribute("siteUser", siteUser);
         return "user_modify";
     }
 
@@ -96,6 +97,7 @@ public class UserController {
             return "user_modify";
         }
         SiteUser siteUser = this.userService.getUser(id);
+
         String newNn = (userUpdateForm.getNickname() == null) ? siteUser.getNickname() : userUpdateForm.getNickname();
         String newEm = (userUpdateForm.getEmail() == null) ? siteUser.getEmail() : userUpdateForm.getEmail();
 
@@ -104,8 +106,10 @@ public class UserController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/passModify")
-    public String passModify() {
+    @GetMapping("/passModify/{id}")
+    public String passModify(@PathVariable("id") Long id, Model model) {
+        SiteUser siteUser = this.userService.getUser(id);
+        model.addAttribute("siteUser", siteUser);
         return "password_modify";
     }
 

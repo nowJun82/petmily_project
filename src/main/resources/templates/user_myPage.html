@@ -1,9 +1,57 @@
-<h2>마이 페이지</h2>
-<p>아이디 넘버: <span th:text="${siteUser.id}"></span></p>
-<p>아이디: <span th:text="${siteUser.username}"></span></p>
-<p>닉네임: <span th:text="${siteUser.nickname}"></span></p>
-<p>이메일: <span th:text="${siteUser.email}"></span></p>
-<a th:href="@{|/user/modify/${siteUser.id}|}">내 정보 수정하기</a>
-<a th:href="@{|/user/passModify|}">비밀번호 변경</a>
-<a th:href="@{|/question/user/getList|}">내 글 불러오기</a>
-<a th:href="@{|/user/delete|}">회원 탈퇴</a>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>펫밀리 > 마이 페이지</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/style.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/board.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/info-nav.css}" rel="stylesheet" type="text/css"/>
+    <div th:replace="header :: header"></div>
+</head>
+
+<body>
+<section>
+    <div class="board-top-bar">
+        <div class="board-top-bar-title">
+            마이 페이지
+        </div>
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M598.97 114.72L0 0 0 120 1200 120 1200 0 598.97 114.72z" class="shape-fill"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- 모든 마이페이지 탭에 고정으로 들어감 -->
+<nav class="info-nav">
+    <div class="my-profile"></div>
+    <div class="my-profile2">
+        <div class="profile-name" th:text="${siteUser.nickname + '님,'}"></div>
+        <div class="profile-halo">반갑습니다 😊</div>
+    </div>
+    <div class="choice-info">
+        <a th:href="@{|/user/modify/${siteUser.id}|}">내 정보 수정</a>
+        <a th:href="@{|/user/passModify|}">비밀번호 변경</a>
+        <a th:href="@{|/question/user/getList|}">내가 쓴 글</a>
+        <a th:href="@{|/user/delete|}">회원 탈퇴</a>
+    </div>
+</nav>
+
+<div class="my-info-box">
+    <div class="my-info">
+        <ul>
+            <li>아이디 넘버: <span th:text="${siteUser.id}"></span></li>
+            <li>아이디: <span th:text="${siteUser.username}"></span></li>
+            <li>닉네임: <span th:text="${siteUser.nickname}"></span></li>
+            <li>이메일: <span th:text="${siteUser.email}"></span></li>
+        </ul>
+        <!--p>아이디 넘버: <span th:text="${siteUser.id}"></span></p>
+        <p>아이디: <span th:text="${siteUser.username}"></span></p>
+        <p>닉네임: <span th:text="${siteUser.nickname}"></span></p>
+        <p>이메일: <span th:text="${siteUser.email}"></span></p-->
+    </div>
+</div>
+
+</body>
+</html>
