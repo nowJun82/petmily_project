@@ -26,8 +26,6 @@ public class MainController {
             ut.dataCreaete();
             isTestDataCreated = true;
         }
-
-
         return "main";
     }
 

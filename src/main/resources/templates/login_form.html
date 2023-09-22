@@ -13,7 +13,7 @@
 <body>
 
 <div class="form-structor">
-    <div class="signup">
+    <div class="signup slide-up">
         <h2 class="form-title" id="signup">회원가입</h2>
         <form th:action="@{/user/signup}" th:object="${userCreateForm}" method="post">
             <div class="form-holder">
@@ -26,7 +26,7 @@
             <button type="submit" class="submit-btn">가입하기</button>
         </form>
     </div>
-    <div class="login slide-up">
+    <div class="login">
         <div class="center">
             <h2 class="form-title" id="login">로그인</h2>
             <form th:action="@{/user/login}" method="post">
