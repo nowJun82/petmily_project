@@ -3,43 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>펫밀리</title>
+    <title>펫밀리 > 게시물</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link th:href="@{/board.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/detail.css}" rel="stylesheet" type="text/css"/>
     <link th:href="@{/style.css}" rel="stylesheet" type="text/css"/>
     <div th:replace="header :: header"></div>
 </head>
 
 <body>
-<h1 th:text="${question.subject}"></h1>
-<div class="card-body">
-    <div class="card-text" style="white-space: pre-line;" th:text="${question.content}"></div>
-    <div class="d-flex justify-content-end">
-        <div class="badge bg-light text-dark p-2 text-start">
-            <div class="mb-2">
-                <span th:text="${question.author.nickname}"></span>
-            </div>
-            <div th:text="${#temporals.format(question.createDate, 'MM-dd HH:mm')}"></div>
+<section>
+    <div class="board-top-bar">
+        <div class="board-top-bar-title">
+            커 뮤 니 티
+        </div>
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M598.97 114.72L0 0 0 120 1200 120 1200 0 598.97 114.72z" class="shape-fill"></path>
+        </svg>
+    </div>
+</section>
+
+<div class="detail-form">
+    <div class="q-top">
+        <div class="q-n" th:text="${question.id}"></div>
+        <div class="q-s" th:text="${question.subject}"></div>
+        <div class="q-w" th:if="${question.author != null}" th:text="'작성자 : ' + ${question.author.nickname}"></div>
+    </div>
+    <div class="q-c" th:text="${question.content}"></div>
+    <div class="q-bottom">
+        <div class="q-t">
+            <div th:text="${#temporals.format(question.createDate, 'MM-dd')}"></div>
+        </div>
+        <div class="q-b">
+            <a th:href="@{|/question/modify/${question.id}|}" class="btn btn-sm btn-outline-secondary"
+               sec:authorize="isAuthenticated()"
+               th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
+               th:text="수정"></a>
+            <a href="javascript:void(0);" th:data-uri="@{|/question/delete/${question.id}|}"
+               class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+               th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
+               th:text="삭제"></a>
         </div>
     </div>
-</div>
-<!-- 답변의 갯수 표시 -->
-<h5 class="border-bottom my-3 py-2"
-    th:text="|${#lists.size(question.answerList)}개의 답변이 있습니다.|"></h5>
-<!-- 답변 반복 시작 -->
-<div class="card my-3" th:each="answer : ${question.answerList}">
-    <div class="card-body">
-        <div class="card-text" style="white-space: pre-line;" th:text="${answer.content}"></div>
-        <div class="d-flex justify-content-end">
-            <div class="badge bg-light text-dark p-2 text-start">
-                <div class="mb-2">
-                    <span th:if="${answer.author != null}" th:text="${answer.author.username}"></span>
-                </div>
-                <div th:text="${#temporals.format(answer.createDate, 'yyyy-MM-dd HH:mm')}"></div>
-            </div>
+    <!-- 답변의 갯수 표시 -->
+    <div class="a-start" th:text="|🗒️(${#lists.size(question.answerList)})|"></div>
+    <!-- 답변 반복 시작 -->
+    <div class="a-l" th:each="answer : ${question.answerList}">
+        <div class="a-top">
+            <div class="a-n" th:text="${answer.id}"></div>
+            <div class="a-t" th:text="${#temporals.format(answer.createDate, 'MM-dd')}"></div>
+            <div class="a-w" th:text="${answer.author.nickname}"></div>
+            <div class="a-s" th:text="${answer.content}"></div>
         </div>
     </div>
+    <!-- 답변 반복 끝  -->
 </div>
-<!-- 답변 반복 끝  -->
 </body>
+<script layout:fragment="script" type='text/javascript'>
+    const delete_elements = document.getElementsByClassName("delete");
+    Array.from(delete_elements).forEach(function(element) {
+        element.addEventListener('click', function() {
+            if(confirm("정말로 삭제하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            };
+        });
+    });
+</script>
 </html>
