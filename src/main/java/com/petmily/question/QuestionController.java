@@ -177,7 +177,7 @@ public class QuestionController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
-    public String questionModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal) {
+    public String questionModify(Model model,QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal) {
         Question question = this.questionService.getQuestion(id);
 
         if (!question.getAuthor().getUsername().equals(principal.getName())) {
@@ -187,13 +187,13 @@ public class QuestionController {
         questionForm.setBoardId(question.getBoard().getId());
         questionForm.setSubject(question.getSubject());
         questionForm.setContent(question.getContent());
-
+        model.addAttribute("boardId", boardService.findAll());
         return "question_form";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/modify/{id}")
-    public String questionModify(@Valid QuestionForm questionForm, BindingResult bindingResult,
+    public String questionModify(Model model,@Valid QuestionForm questionForm, BindingResult bindingResult,
                                  Principal principal, @PathVariable("id") Integer id) {
         if (bindingResult.hasErrors()) {
             return "question_form";
@@ -204,10 +204,9 @@ public class QuestionController {
         if (!question.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
-
+        Board board = boardService.findById(questionForm.getBoardId()).get();
         this.questionService.modify(question, questionForm.getSubject(), questionForm.getContent());
-
-        return String.format("redirect:/question/free/detail/%d", id);
+        return "redirect:/question/" + board.getCode();
     }
 
     @PreAuthorize("isAuthenticated()")
