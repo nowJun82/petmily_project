@@ -1,0 +1,129 @@
+@font-face {
+    font-family: 'HakgyoansimWoojuR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimWoojuR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-size: 18px;
+}
+
+/* 번호, 제목&작성자, 🗒️답변 */
+.q-top, .q-bottom, .a-start {
+    border-bottom: 1px solid #c8c8c8;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 25px;
+    padding: 5px 0;
+}
+
+/* 번호, 작성 시간 */
+.q-n, .q-t {
+    padding: 5px 15px;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* 제목 */
+.q-s {
+    padding: 5px 15px;
+    font-size: 22px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* 작성자, 수정&삭제 버튼 */
+.q-w, .q-b {
+    padding: 5px 15px;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* 내용 */
+.q-c {
+    margin: 0 25px;
+    padding: 5px 5px;
+    font-size: 18px;
+    display: flex;
+    min-height: 400px;
+}
+
+/* 수정, 삭제 버튼 */
+.q-b a {
+    margin-left: 5px;
+    padding: 0 10px;
+    border-radius: 7.5px;
+    border: 1px solid #c8c8c8;
+}
+
+/* 수정, 삭제 버튼 hover 효과 */
+.q-b a:hover {
+    box-shadow:0 12px 15px 0 rgba(0,0,0,.05),0 17px 50px 0 rgba(0,0,0,.05);
+    border-top: 1px solid rgba(160, 200, 110, .3);
+    border-left: 1px solid rgba(160, 200, 110, .5);
+}
+
+.a-top {
+    display: flex;
+    margin: 0 25px;
+}
+
+.a-n {
+    width: 20px;
+}
+
+.a-n, .a-w, .a-t, .a-s {
+    padding: 3px 7.5px;
+    font-size: 17px;
+    display: inline-flex;
+}
+
+.a-n, .a-w, .a-t {
+    border-right: 1px solid #c8c8c8;
+}
+
+.detail-form {
+    display: block;
+    width: 60%;
+    margin: 100px 20% 100px 20%;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow:0 12px 15px 0 rgba(0,0,0,.05),0 17px 50px 0 rgba(0,0,0,.05);
+    border-top: 1px solid rgba(160, 200, 110, .3);
+    border-left: 1px solid rgba(160, 200, 110, .5);
+}
+
+.a-form {
+    margin: 0 25px;
+    border-top: 1px solid #c8c8c8;
+    padding: 15px 0;
+    font-size: 17px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-control {
+    border-radius: 7.5px;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow:0 12px 15px 0 rgba(0,0,0,.05),0 17px 50px 0 rgba(0,0,0,.05);
+    border-top: 1px solid rgba(160, 200, 110, .3);
+    border-left: 1px solid rgba(160, 200, 110, .5);
+    width: 90%;
+    min-height: 100px;
+    max-height: 100px;
+}
+
+.a-b {
+    margin-right: 27px;
+    padding: 0 10px;
+    border-radius: 7.5px;
+    border: 1px solid #c8c8c8;
+}
+
+.a-b:hover {
+    box-shadow:0 12px 15px 0 rgba(0,0,0,.05),0 17px 50px 0 rgba(0,0,0,.05);
+    border-top: 1px solid rgba(160, 200, 110, .3);
+    border-left: 1px solid rgba(160, 200, 110, .5);
+}

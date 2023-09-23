@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>펫밀리 > 글 작성</title>
+    <!-- toastr CSS 및 JavaScript 파일 추가 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link th:href="@{/style.css}" rel="stylesheet" type="text/css"/>
     <link th:href="@{/question_form.css}" rel="stylesheet" type="text/css"/>
@@ -14,10 +17,7 @@
 <section>
     <div class="board-top-bar">
         <div class="board-top-bar-title">
-            커 뮤 니 티
-        </div>
-        <div class="frame">
-            <h4>글 쓰 기</h4>
+            글 쓰 기
         </div>
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path d="M598.97 114.72L0 0 0 120 1200 120 1200 0 598.97 114.72z" class="shape-fill"></path>
@@ -33,15 +33,13 @@
         </select>
     </div>
     <div class="write-title">
-        <input type="text" th:field="*{subject}" class="form-control" placeholder=" 제목을 입력해주세요.">
+        <input type="text" th:field="*{subject}" class="form-control" placeholder=" 제목을 입력해주세요." name="subject-find">
     </div>
     <div class="write-body">
         <textarea th:field="*{content}" class="form-control" placeholder=" 내용을 입력해주세요."></textarea>
     </div>
-    <!--div class="error-zone">
-        <div th:replace="~{form_errors :: formErrorsFragment}"></div>
-    </div-->
     <button type="submit" class="write-btn">작성</button>
 </form>
+<script src="common.js"></script>
 </body>
 </html>

@@ -31,14 +31,14 @@
         <div class="profile-halo">반갑습니다 😊</div>
     </div>
     <div class="choice-info">
-        <a th:href="@{|/user/modify/${siteUser.id}|}">내 정보 수정</a>
-        <a th:href="@{|/user/passModify|}">비밀번호 변경</a>
-        <a th:href="@{|/question/user/getList|}">내가 쓴 글</a>
-        <a th:href="@{|/user/delete|}">회원 탈퇴</a>
+        <a th:href="@{|/user/modify/${siteUser.id}|}">🔧내 정보 수정</a>
+        <a th:href="@{|/user/passModify|}">🗝️비밀번호 변경</a>
+        <a th:href="@{|/question/user/getList|}">📝내가 쓴 글</a>
+        <a th:href="@{|/user/delete|}">❌회원 탈퇴</a>
     </div>
 </nav>
 
-<div class="my-info-box">
+<!--div class="my-info-box">
     <div class="my-info">
         <ul>
             <li>아이디 넘버: <span th:text="${siteUser.id}"></span></li>
@@ -46,12 +46,12 @@
             <li>닉네임: <span th:text="${siteUser.nickname}"></span></li>
             <li>이메일: <span th:text="${siteUser.email}"></span></li>
         </ul>
-        <!--p>아이디 넘버: <span th:text="${siteUser.id}"></span></p>
+        <p>아이디 넘버: <span th:text="${siteUser.id}"></span></p>
         <p>아이디: <span th:text="${siteUser.username}"></span></p>
         <p>닉네임: <span th:text="${siteUser.nickname}"></span></p>
-        <p>이메일: <span th:text="${siteUser.email}"></span></p-->
+        <p>이메일: <span th:text="${siteUser.email}"></span></p>
     </div>
-</div>
+</div-->
 
 </body>
 </html>
