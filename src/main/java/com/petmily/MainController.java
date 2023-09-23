@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequiredArgsConstructor
 public class MainController {
-
     @GetMapping("/")
     public String root() {
         return "main";

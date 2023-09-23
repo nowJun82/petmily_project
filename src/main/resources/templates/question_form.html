@@ -29,7 +29,7 @@
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
     <div class="write-place">
         <select name="boardId" id="boardId" class="choice-category" tabindex="-1">
-            <option th:each="board : ${boards}" th:value="${board.id}" th:text="|${board.name} 게시판|" selected=></option>
+            <option th:each="board : ${boardId}" th:value="${board.id}" th:text="|${board.name} 게시판|" selected=></option>
         </select>
     </div>
     <div class="write-title">
