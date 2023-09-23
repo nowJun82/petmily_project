@@ -1,112 +1,50 @@
-$(document).ready(function () {
-    //GNB
-    function menuListSize(){
-        var totalWidth = 0
-        $('nav dl').each(function(){
-            totalWidth = Math.ceil(totalWidth + $(this).width());
-        });
-        $('nav .menuList').css('width', totalWidth + 10);
-    };
-    menuListSize();
-    $('nav > div').hover(function () {
-        var headerHT = $('header').outerHeight();
-        $('nav').stop().animate({ 'height': headerHT+341 })
-        $('header .menuBG').stop().fadeIn();
-    }, function () {
-        var headerHT = $('header').outerHeight();
-        $('nav').stop().animate({ 'height': headerHT })
-        $('header .menuBG').stop().fadeOut();
-    })
-    $('nav dl').hover(function () {
-        $('nav dt a').css('color' , '#767676')
-        $(this).find('dt a').addClass('on');
-    }, function () {
-        if ($('#container').hasClass('sub')) {
-            $('nav dt a').css('color', '#767676')
-            $(this).find('dt a').removeClass('on');
-        } else {
-            $('nav dt a').css('color', '#101010')
-            $(this).find('dt a').removeClass('on');
-        }
-    });
-    //Moblie GNB
-    function mobileMenuTags() {
-        var desktopMenuTags = $('nav .menuList').html();
-        $('header .mobileGNB .moMenuList').prepend(desktopMenuTags);
-    };
-    mobileMenuTags();
-    function mobileMenuSize() {
-        var windowHT = $(window).height();
-        var moMenuCrrlHT = $('header .mobileGNB .ctrl').outerHeight();
-        var moMenuLangHT = $('header .mobileGNB .lang').outerHeight();
-        $('header .mobileGNB .moMenuList').css('height', windowHT - moMenuCrrlHT - moMenuLangHT)
-    };
-    mobileMenuSize();
-    $('header a.moMenuopen').click(function () {
-        $('header .mobileGNB').stop().animate({ 'right': 0 });
-        $('header .menuBG').stop().fadeIn();
-        return false;
-    });
-    $('header .mobileGNB .ctrl a.menuClose , header .menuBG').click(function () {
-        $('header .mobileGNB').stop().animate({ 'right': '-100%' });
-        $('header .menuBG').stop().fadeOut();
-        $('header .mobileGNB dt a').removeClass('on');
-        $('header .mobileGNB dd').slideUp();
-        return false;
-    });
-    $('header .mobileGNB dt a').click(function () {
-        if ($(this).hasClass('on')) {
-            $(this).removeClass('on');
-            $('header .mobileGNB dd').slideUp();
-        } else {
-            $('header .mobileGNB dt a').removeClass('on');
-            $('header .mobileGNB dd').slideUp();
-            $(this).addClass('on');
-            $(this).parent('dt').next('dd').slideDown();
-        }
-        return false;
-    });
-    //Container
-    function containerSize() {
-        var headerHT = $('header').outerHeight();
-        $('#container').css('padding-top', headerHT);
-    };
-    containerSize();
-    $(window).resize(function () {
-        containerSize();
-        menuListSize();
-        mobileMenuSize();
-    });
-    //Go Top
-    $('footer a.goTop').click(function () {
-        $('html,body').stop().animate({ scrollTop: 0 });
-        return false;
-    });
-    //Popup
-    function popupZindex() {
-        var popupDataEA = $('.popupWrap .popupData').length;
-        for (var i = 0; i < popupDataEA; i++) {
-            $('.popupWrap .popupData').eq(i).css('z-index' , i + 10)
-        }
+toastr.options = {
+    closeButton: true,
+    debug: false,
+    newestOnTop: true,
+    progressBar: true,
+    positionClass: "toast-top-right",
+    preventDuplicates: false,
+    onclick: null,
+    showDuration: "300",
+    hideDuration: "1000",
+    timeOut: "4000",
+    extendedTimeOut: "1000",
+    showEasing: "swing",
+    hideEasing: "linear",
+    showMethod: "fadeIn",
+    hideMethod: "fadeOut"
+};
+
+// toastr 에러 메시지를 표시하는 함수
+function showError(message) {
+    toastr.error(message, '에러');
+}
+
+// toastr 성공 메시지를 표시하는 함수
+function showSuccess(message) {
+    toastr.success(message, '성공');
+}
+
+// 양식을 유효성 검사하고 적절한 메시지를 표시하는 함수
+function validateForm() {
+    var title = document.querySelector("input[name='subject-find']").value; // 'input[type="text"]'
+    var content = document.querySelector('textarea').value;         // 'textarea'
+
+    if (!title && !content) {
+        showError('제목과 내용을 입력하세요.');
+    } else if (!title) {
+        showError('제목을 입력하세요.');
+    } else if (!content) {
+        showError('내용을 입력하세요.');
+    } else {
+        // 양식이 유효하면 필요한 경우 여기에서 제출할 수 있습니다
+        showSuccess('작성이 완료되었습니다.');
     }
-    popupZindex();
-    /*
-    function popupDataSize() {
-        if ($(window).width() <= 812) {
-            var windowHT = $(window).height();
-            $('.popupWrap .imgArea a img').css('height', windowHT / 2)
-        } else {
-            $('.popupWrap .imgArea a img').css('height', 'auto')
-        }
-    }
-    popupDataSize();
-    $(window).resize(function () {
-        if ($(window).width() <= 812) {
-            var windowHT = $(window).height();
-            $('.popupWrap .imgArea a img').css('height', windowHT / 2)
-        } else {
-            $('.popupWrap .imgArea a img').css('height', 'auto')
-        }
-    });
-    */
+}
+
+// 양식 제출 이벤트에 validateForm 함수를 연결합니다
+document.querySelector('.write-form').addEventListener('submit', function (event) {
+    event.preventDefault(); // 기본 양식 제출 방지
+    validateForm();
 });

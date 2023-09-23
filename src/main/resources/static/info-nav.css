@@ -7,13 +7,14 @@
 
 .info-nav {
     display: flex;
-    border: 1px solid black;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.25);
     box-shadow:0 12px 15px 0 rgba(0,0,0,.05),0 17px 50px 0 rgba(0,0,0,.05);
     border-radius: 25px;
     margin: 100px 15% 50px 15%;
     width: 70%;
     height: 150px;
+    border-top: 1px solid rgba(160, 200, 110, .3);
+    border-left: 1px solid rgba(160, 200, 110, .5);
 }
 
 .info-nav > .my-profile {
@@ -30,6 +31,7 @@
 
 .my-profile2 {
     display: block;
+    width: 225px;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -49,7 +51,12 @@
     text-align: center;
     font-size: 22px;
     font-weight: bold;
-    margin: 0 30px;
+    margin-right: 25px;
+}
+
+.choice-info > .selected {
+    background: rgba(220, 170, 110, .5) !important;
+    border-bottom: 1px solid black;
 }
 
 .choice-info a {
@@ -60,4 +67,24 @@
 
 .choice-info a: hover {
     border-bottom: 1px solid black !important;
+}
+
+/* 내 정보 수정 */
+.modify-info {
+    display: flex;
+    background: rgba(220, 170, 110, .25);
+    box-shadow:0 12px 15px 0 rgba(0,0,0,.05),0 17px 50px 0 rgba(0,0,0,.05);
+    border-top: 1px solid #c8c8c8;
+    border-left: 1px solid #c8c8c8;
+    border-radius: 25px;
+    margin: 100px 15% 50px 15%;
+    width: 70%;
+    height: 300px;
+    font-size: 22px;
+}
+
+form {
+    border: 1px solid black;
+    margin: 25px 25px 25px 50px;
+    text-align: center;
 }
