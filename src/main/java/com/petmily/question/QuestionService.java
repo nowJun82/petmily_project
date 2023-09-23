@@ -3,8 +3,6 @@ package com.petmily.question;
 import com.petmily.DataNotFoundException;
 import com.petmily.board.Board;
 import com.petmily.user.SiteUser;
-import com.petmily.user.UserRepository;
-import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,7 +32,9 @@ public class QuestionService {
             throw new DataNotFoundException("question not found");
         }
     }
-
+    public List<Question> getFaqList(Board board) {
+        return this.questionRepository.findByBoard(board);
+    }
     public Page<Question> getList(int page, String kw, long boardId) {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("createDate"));

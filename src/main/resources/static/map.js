@@ -24,6 +24,11 @@ var markerPositions = [
         content: '<a href="https://naver.me/xDsj3W1B" target="_blank">[병원] 웰케어 동물병원</a>'
     },
     {
+         position: new naver.maps.LatLng(36.3537688, 127.3778071), // 웰케어 동물병원
+         title: '애견카페',
+         content: '<a https://naver.me/xC61cPdj" target="_blank">[카페] 마리몽</a>'
+         },
+         {
         position: new naver.maps.LatLng(36.3515862, 127.3803119), // 24시 타임 동물 메디컬 센터
         title: '동물병원',
         content: '<a href="https://naver.me/5xlngDzG" target="_blank">[병원] 24시 타임 동물 메디컬센터</a>'

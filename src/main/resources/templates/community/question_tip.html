@@ -31,9 +31,10 @@
 <form class="search-only">
     <input type="text" placeholder=" 검색어 입력" name="kw">
     <button class="search-btn">검색</button>
-    <button class="write-btn">
-        <a href="/question/create">글쓰기</a>
-    </button>
+
+    <a class="write-btn" href="/question/create/tip"
+       sec:authorize="isAuthenticated()"
+       th:text="글쓰기"></a>
 </form>
 
 <div class="table-rayout">
@@ -45,7 +46,7 @@
         <div class="th-hit">조회수</div>
     </div>
     <div th:each="question, loop : ${paging}" class="table-body">
-        <div class="td-num" th:text="${question.id}">
+        <div class="td-num" th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}">
         </div>
         <div class="td-title">
             <a th:href="@{|/question/tip/detail/${question.id}|}" th:text="${question.subject}"></a>

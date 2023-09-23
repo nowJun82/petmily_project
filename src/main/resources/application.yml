@@ -1,6 +1,18 @@
 server:
   port: 8090
 spring:
+  mail:
+    host: smtp.gmail.com # 1
+    port: 587 # 2
+    username: seonghungim34@gmail.com
+    password: axzk itwr czul znrv
+    properties:
+      mail:
+        smtp:
+          auth: true # 5
+          timeout: 5000 # 6
+          starttls:
+            enable: true # 7
   profiles:
     include: secret
   devtools:

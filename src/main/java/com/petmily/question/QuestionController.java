@@ -19,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("/question")
 @RequiredArgsConstructor
@@ -89,11 +90,77 @@ public class QuestionController {
         return "community/question_tip";
     }
 
-    //글 생성 함수
+    @GetMapping("/faq")
+    public String faq(Model model) {
+        Board board = new Board();
+        board.setId(5L);
+        List<Question> questionList = this.questionService.getFaqList(board);
+        model.addAttribute("questionList", questionList);
+        return "community/question_faq";
+    }
+
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/create/free")
+    public String freeCreate(Model model,QuestionForm questionForm) {
+        Board board = new Board();
+        board.setId(3L);
+        board.setCode("free");
+        board.setName("자유");
+        model.addAttribute("boardId",board);
+        return "question_form";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/create/free")
+    public String freeCreate(Model model, @Valid QuestionForm questionForm, Principal principal) {
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+        Board board = boardService.findById(questionForm.getBoardId()).get();
+        this.questionService.create(board, questionForm.getSubject(), questionForm.getContent(), siteUser);
+        return "redirect:/question/" + board.getCode();
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/create/tip")
+    public String tip(Model model,QuestionForm questionForm) {
+        Board board = new Board();
+        board.setId(4L);
+        board.setCode("tip");
+        board.setName("팁");
+        model.addAttribute("boardId",board);
+        return "question_form";
+    }
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/create/tip")
+    public String tipCreate(Model model, @Valid QuestionForm questionForm, Principal principal) {
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+        Board board = boardService.findById(questionForm.getBoardId()).get();
+        this.questionService.create(board, questionForm.getSubject(), questionForm.getContent(), siteUser);
+        return "redirect:/question/" + board.getCode();
+    }
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/QnA")
+    public String QnA(Model model,QuestionForm questionForm) {
+        Board board = new Board();
+        board.setId(6L);
+        board.setCode("qna");
+        board.setName("QnA");
+        model.addAttribute("boardId",board);
+        return "question_form";
+    }
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/QnA")
+    public String QnACreate(Model model, @Valid QuestionForm questionForm, Principal principal) {
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+        Board board = boardService.findById(questionForm.getBoardId()).get();
+        this.questionService.create(board, questionForm.getSubject(), questionForm.getContent(), siteUser);
+        return "redirect:/";
+    }
+        //글 생성 함수
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
     public String questionCreate(Model model, QuestionForm questionForm) {
-        model.addAttribute("boards", boardService.findAll());
+        model.addAttribute("boardId", boardService.findAll());
         return "question_form";
     }
 
@@ -103,7 +170,6 @@ public class QuestionController {
     public String questionCreate(Model model, @Valid QuestionForm questionForm, Principal principal) {
         SiteUser siteUser = this.userService.getUser(principal.getName());
         Board board = boardService.findById(questionForm.getBoardId()).get();
-
         this.questionService.create(board, questionForm.getSubject(), questionForm.getContent(), siteUser);
         return "redirect:/question/" + board.getCode();
     }
@@ -111,7 +177,7 @@ public class QuestionController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
-    public String questionModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal) {
+    public String questionModify(Model model,QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal) {
         Question question = this.questionService.getQuestion(id);
 
         if (!question.getAuthor().getUsername().equals(principal.getName())) {
@@ -121,13 +187,13 @@ public class QuestionController {
         questionForm.setBoardId(question.getBoard().getId());
         questionForm.setSubject(question.getSubject());
         questionForm.setContent(question.getContent());
-
+        model.addAttribute("boardId", boardService.findAll());
         return "question_form";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/modify/{id}")
-    public String questionModify(@Valid QuestionForm questionForm, BindingResult bindingResult,
+    public String questionModify(Model model,@Valid QuestionForm questionForm, BindingResult bindingResult,
                                  Principal principal, @PathVariable("id") Integer id) {
         if (bindingResult.hasErrors()) {
             return "question_form";
@@ -138,10 +204,9 @@ public class QuestionController {
         if (!question.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
-
+        Board board = boardService.findById(questionForm.getBoardId()).get();
         this.questionService.modify(question, questionForm.getSubject(), questionForm.getContent());
-
-        return String.format("redirect:/question/free/detail/%d", id);
+        return "redirect:/question/" + board.getCode();
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -152,7 +217,7 @@ public class QuestionController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
         this.questionService.delete(question);
-        return "redirect:/question/free";
+        return "redirect:/";
     }
 
     @GetMapping("/user/getList/{id}")
