@@ -1,0 +1,108 @@
+@font-face {
+    font-family: 'HakgyoansimWoojuR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimWoojuR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.info-nav {
+    display: flex;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow:0 12px 15px 0 rgba(0,0,0,.05),0 17px 50px 0 rgba(0,0,0,.05);
+    border-radius: 25px;
+    margin: 100px 15% 50px 15%;
+    width: 70%;
+    height: 150px;
+    border-top: 1px solid rgba(160, 200, 110, .3);
+    border-left: 1px solid rgba(160, 200, 110, .5);
+}
+
+.info-nav > .my-profile {
+    width: 100px;
+    height: 100px;
+    margin: 25px 25px 25px 50px;
+    border-radius: 50%;
+    border: 2px solid black;
+    background-image: url('https://img.freepik.com/free-photo/3d-rendering-of-cartoon-like-dog_23-2150780984.jpg?size=626&ext=jpg&uid=R115569270&ga=GA1.2.531860642.1694132191&semt=ais_ai_generated');
+    background-position: center;
+    background-size: 140px;
+    display: block;
+}
+
+.my-profile2 {
+    display: block;
+    width: 225px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-left: 1px solid #c8c8c8;
+    border-right: 1px solid #c8c8c8;
+    margin: 25px;
+    padding: 17px 25px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.choice-info {
+    width: 64.5%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-right: 25px;
+}
+
+.choice-info > .selected {
+    background: rgba(220, 170, 110, .5) !important;
+    border-bottom: 1px solid black;
+}
+
+.choice-info a {
+    border-bottom: 1px solid #c8c8c8;
+    margin: 15px auto;
+    padding: 15px auto;
+}
+
+.choice-info a: hover {
+    border-bottom: 1px solid black !important;
+}
+
+/* 내 정보 수정 */
+.modify-info {
+    display: flex;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow:0 12px 15px 0 rgba(0,0,0,.05),0 17px 50px 0 rgba(0,0,0,.05);
+    border-top: 1px solid rgba(160, 200, 110, .3);
+    border-left: 1px solid rgba(160, 200, 110, .5);
+    border-radius: 25px;
+    margin: 50px 15% 50px 15%;
+    width: 70%;
+    height: 300px;
+    justify-content: center;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.form-area {
+    display: block;
+    border: 1px solid black;
+    margin: 20px;
+    padding: 10px;
+    text-align: center;
+}
+
+.modify-nickname {
+    display: flex;
+    border: 1px solid black;
+}
+
+.modify-email {
+    display: flex;
+    border: 1px solid black;
+}
+
+.input-box {
+    background: black;
+}

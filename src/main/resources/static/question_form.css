@@ -20,17 +20,6 @@
     padding-top: 50px;
 }
 
-.frame {
-    margin: 25px 0;
-    padding-top: 25px;
-    display: inline-flex;
-    text-align: center;
-    justify-content: center;
-    align-items: bottom;
-    height: 52px;
-    border-top: 1px solid black;
-}
-
 .board-top-bar svg {
     position: relative;
     display: block;
@@ -50,8 +39,10 @@
     margin: 100px 25% 100px 25%;
     background: #fff;
     border-radius: 25px;
+    background: rgba(220, 170, 110, .01);
+    box-shadow:0 12px 15px 0 rgba(0,0,0,.05),0 17px 50px 0 rgba(0,0,0,.05);
     border-top: 1px solid #c8c8c8;
-    border-bottom: 1px solid #c8c8c8;
+    border-left: 1px solid #c8c8c8;
 }
 
 .write-place {
@@ -63,7 +54,7 @@
     justify-content: left;
     margin: 15px auto;
     font-size: 20px;
-    border: 1px solid #A5C8A0;
+    border: 1px solid #c8c8c8;
     border-radius: 5px;
     display: flex;
 }
@@ -79,9 +70,11 @@
 
 .write-title > .form-control {
     border: 1px solid #DCAA6E;
+    background: rgba(255, 255, 255, .5);
     border-radius: 5px;
     width: 95%;
-    font-size: 24px;
+    font-family: "Arial" !important;
+    font-size: 20px;
     margin: 15px auto;
 }
 
@@ -96,10 +89,12 @@
 
 .write-body > .form-control {
     border: 1px solid #DCAA6E;
+    background: rgba(255, 255, 255, .5);
     border-radius: 5px;
     width: 95%;
     height: 300px;
-    font-size: 24px;
+    font-family: "Arial" !important;
+    font-size: 18px;
     margin: 15px auto;
 }
 

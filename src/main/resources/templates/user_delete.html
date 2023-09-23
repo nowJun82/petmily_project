@@ -1,4 +1,43 @@
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>펫밀리 > 마이 페이지</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/style.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/board.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/info-nav.css}" rel="stylesheet" type="text/css"/>
+    <div th:replace="header :: header"></div>
+</head>
+
 <body>
+<section>
+    <div class="board-top-bar">
+        <div class="board-top-bar-title">
+            마이 페이지
+        </div>
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M598.97 114.72L0 0 0 120 1200 120 1200 0 598.97 114.72z" class="shape-fill"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- 모든 마이페이지 탭에 고정으로 들어감 -->
+<nav class="info-nav">
+    <div class="my-profile"></div>
+    <div class="my-profile2">
+        <div class="profile-name" th:text="${siteUser.nickname + '님,'}"></div>
+        <div class="profile-halo">반갑습니다 😊</div>
+    </div>
+    <div class="choice-info">
+        <a th:href="@{|/user/modify/${siteUser.id}|}">🔧내 정보 수정</a>
+        <a th:href="@{|/user/passModify/${siteUser.id}|}">🗝️비밀번호 변경</a>
+        <a th:href="@{|/question/user/getList/${siteUser.id}|}">📝내가 쓴 글</a>
+        <a th:href="@{|/user/delete|}" class="selected">❌회원 탈퇴</a>
+    </div>
+</nav>
+
 <div layout:fragment="content" class="container my-3">
     <div class="my-3 border-bottom">
         <h4>회원 탈퇴</h4>
@@ -23,3 +62,4 @@
     </div>
 </div>
 </body>
+</html>

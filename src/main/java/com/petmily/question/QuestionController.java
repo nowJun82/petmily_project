@@ -172,12 +172,14 @@ public class QuestionController {
         return "redirect:/question/free";
     }
 
-    @GetMapping("/user/getList")
-    public String getQuestionsByUser(Model model, Principal principal) {
+    @GetMapping("/user/getList/{id}")
+    public String getQuestionsByUser(@PathVariable("id") Long id, Model model, Principal principal) {
         String username = principal.getName();
         SiteUser user = userService.getUser(username);
+        SiteUser siteUser = this.userService.getUser(id);
         List<Question> userQuestions = questionService.findByAuthor(user);
         model.addAttribute("userQuestions", userQuestions);
+        model.addAttribute("siteUser", siteUser);
 
         return "user_getList";
     }
