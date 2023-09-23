@@ -19,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("/question")
 @RequiredArgsConstructor
@@ -89,7 +90,24 @@ public class QuestionController {
         return "community/question_tip";
     }
 
-    //글 생성 함수
+    @GetMapping("/faq")
+    public String faq(Model model) {
+        Board board = new Board();
+        board.setId(5L);
+        List<Question> questionList = this.questionService.getFaqList(board);
+        model.addAttribute("questionList", questionList);
+        return "community/question_faq";
+    }
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/QnA")
+    public String QnA(Model model,QuestionForm questionForm) {
+        Board board = new Board();
+        board.setId(6L);
+        model.addAttribute("boards",board);
+        return "question_form";
+    }
+
+        //글 생성 함수
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
     public String questionCreate(Model model, QuestionForm questionForm) {
@@ -103,7 +121,6 @@ public class QuestionController {
     public String questionCreate(Model model, @Valid QuestionForm questionForm, Principal principal) {
         SiteUser siteUser = this.userService.getUser(principal.getName());
         Board board = boardService.findById(questionForm.getBoardId()).get();
-
         this.questionService.create(board, questionForm.getSubject(), questionForm.getContent(), siteUser);
         return "redirect:/question/" + board.getCode();
     }

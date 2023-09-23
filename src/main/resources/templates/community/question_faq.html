@@ -9,7 +9,9 @@
     <link th:href="@{/style.css}" rel="stylesheet" type="text/css"/>
     <div th:replace="header :: header"></div>
 </head>
+<tr th:each="question : ${questionList}">
+    <td>[[${question.subject}]]</td>
+    <td>[[${question.content}]]</td>
+</tr>
 
-<body>
-
-</body>
+</html>

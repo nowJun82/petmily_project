@@ -22,7 +22,12 @@ var markerPositions = [
         position: new naver.maps.LatLng(36.3024808, 127.3354944), // 웰케어 동물병원
         title: '동물병원',
         content: '<a href="https://naver.me/xDsj3W1B" target="_blank">[병원] 웰케어 동물병원</a>'
-    }
+    },
+    {
+         position: new naver.maps.LatLng(36.3537688, 127.3778071), // 웰케어 동물병원
+         title: '애견카페',
+         content: '<a https://naver.me/xC61cPdj" target="_blank">[카페] 마리몽</a>'
+    },
 ];
 
 // 마커를 담을 배열 생성
