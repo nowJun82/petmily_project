@@ -32,8 +32,8 @@
     </div>
     <div class="choice-info">
         <a th:href="@{|/user/modify/${siteUser.id}|}">🔧내 정보 수정</a>
-        <a th:href="@{|/user/passModify|}">🗝️비밀번호 변경</a>
-        <a th:href="@{|/question/user/getList|}">📝내가 쓴 글</a>
+        <a th:href="@{|/user/passModify/${siteUser.id}|}">🗝️비밀번호 변경</a>
+        <a th:href="@{|/question/user/getList/${siteUser.id}|}">📝내가 쓴 글</a>
         <a th:href="@{|/user/delete|}">❌회원 탈퇴</a>
     </div>
 </nav>
