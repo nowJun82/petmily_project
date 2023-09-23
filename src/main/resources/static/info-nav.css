@@ -72,19 +72,37 @@
 /* 내 정보 수정 */
 .modify-info {
     display: flex;
-    background: rgba(220, 170, 110, .25);
+    background: rgba(255, 255, 255, 0.25);
     box-shadow:0 12px 15px 0 rgba(0,0,0,.05),0 17px 50px 0 rgba(0,0,0,.05);
-    border-top: 1px solid #c8c8c8;
-    border-left: 1px solid #c8c8c8;
+    border-top: 1px solid rgba(160, 200, 110, .3);
+    border-left: 1px solid rgba(160, 200, 110, .5);
     border-radius: 25px;
-    margin: 100px 15% 50px 15%;
+    margin: 50px 15% 50px 15%;
     width: 70%;
     height: 300px;
-    font-size: 22px;
+    justify-content: center;
+    font-size: 19px;
+    font-weight: bold;
 }
 
-form {
+.form-area {
+    display: block;
     border: 1px solid black;
-    margin: 25px 25px 25px 50px;
+    margin: 20px;
+    padding: 10px;
     text-align: center;
+}
+
+.modify-nickname {
+    display: flex;
+    border: 1px solid black;
+}
+
+.modify-email {
+    display: flex;
+    border: 1px solid black;
+}
+
+.input-box {
+    background: black;
 }
