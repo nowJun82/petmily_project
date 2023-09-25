@@ -38,20 +38,12 @@
     </div>
 </nav>
 
-<!--div class="my-info-box">
-    <div class="my-info">
-        <ul>
-            <li>아이디 넘버: <span th:text="${siteUser.id}"></span></li>
-            <li>아이디: <span th:text="${siteUser.username}"></span></li>
-            <li>닉네임: <span th:text="${siteUser.nickname}"></span></li>
-            <li>이메일: <span th:text="${siteUser.email}"></span></li>
-        </ul>
-        <p>아이디 넘버: <span th:text="${siteUser.id}"></span></p>
-        <p>아이디: <span th:text="${siteUser.username}"></span></p>
-        <p>닉네임: <span th:text="${siteUser.nickname}"></span></p>
-        <p>이메일: <span th:text="${siteUser.email}"></span></p>
-    </div>
-</div-->
+<div class="modifys">
+    <div class="modify-pass"><a th:href="@{|/user/modify/${siteUser.id}|}">🔧내 정보 수정</a></div>
+    <div class="modify-pass">🗝️비밀번호 변경</div>
+    <div class="my-list">📝내가 쓴 글</div>
+    <div class="delete">❌회원 탈퇴</div>
+</div>
 
 </body>
 </html>

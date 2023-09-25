@@ -69,40 +69,77 @@
     border-bottom: 1px solid black !important;
 }
 
-/* 내 정보 수정 */
-.modify-info {
+.modifys {
     display: flex;
+    width: 70%;
+    margin: 0 15%;
+}
+
+/* 내 정보 수정 */
+.modify-info, .modify-pass, .my-list, .delete {
+    display: inline-flex;
+    width: 24.3%;
+    height: 300px;
+    font-size: 17px;
+    font-weight: bold;
+    justify-content: center;
     background: rgba(255, 255, 255, 0.25);
     box-shadow:0 12px 15px 0 rgba(0,0,0,.05),0 17px 50px 0 rgba(0,0,0,.05);
+    border-radius: 25px;
     border-top: 1px solid rgba(160, 200, 110, .3);
     border-left: 1px solid rgba(160, 200, 110, .5);
-    border-radius: 25px;
-    margin: 50px 15% 50px 15%;
-    width: 70%;
-    height: 300px;
+}
+
+.modify-info, .modify-pass, .my-list {
+    margin-right: 1%;
+}
+
+.modify-pass, .my-list, .delete {
+    font-size: 28px;
+    text-align: center;
+    align-items: center;
     justify-content: center;
-    font-size: 19px;
-    font-weight: bold;
+    background: rgba(100, 100, 100, 0.2) !important;
 }
 
 .form-area {
     display: block;
-    border: 1px solid black;
-    margin: 20px;
-    padding: 10px;
+    margin: 25px;
+    width: 100%;
     text-align: center;
 }
 
-.modify-nickname {
-    display: flex;
-    border: 1px solid black;
+.modify-nickname, .modify-email {
+    text-align: left;
+    align-items: left;
+    display: block;
 }
 
-.modify-email {
-    display: flex;
-    border: 1px solid black;
+.form-label {
+    padding: 10px 0;
+    text-align: left;
+    display: block;
 }
 
 .input-box {
-    background: black;
+    border: 1px solid #c8c8c8;
+    background: #fff;
+    box-shadow:0 12px 15px 0 rgba(0,0,0,.05),0 17px 50px 0 rgba(0,0,0,.05);
+    border-radius: 25px;
+    border-top: 1px solid rgba(160, 200, 110, .3);
+    border-left: 1px solid rgba(160, 200, 110, .5);
+}
+
+.save-btn {
+    margin-top: 50px;
+    padding: 5px 10px;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow:0 12px 15px 0 rgba(0,0,0,.05),0 17px 50px 0 rgba(0,0,0,.05);
+    border-radius: 25px;
+    border-top: 1px solid rgba(160, 200, 110, .3);
+    border-left: 1px solid rgba(160, 200, 110, .5);
+}
+
+.save-btn:hover {
+    background: #fff;
 }
